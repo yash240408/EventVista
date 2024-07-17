@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration Form</title>
+</head>
+
+<body>
+    <h2>User Registration</h2>
+    <form action="/auth/register/" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <label for="phone">Phone:</label><br>
+        <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required><br><br>
+
+        <label for="profile_picture">Profile Picture:</label><br>
+        <input type="file" id="profile_picture" name="profile_picture" accept="image/*" required><br><br>
+
+        <label for="role">Role:</label><br>
+        <select id="role" name="role" required>
+            <option value="" disabled selected>Select a role</option>
+            <option value="attendee">Attendee</option>
+            <option value="organizer">Organizer</option>
+        </select><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+    <a href="/auth/google/login">Sign Up with Google</a>
+    {% if error %}
+    <p>{{ error }}</p>
+    {% endif %}
+</body>
+
+</html>
