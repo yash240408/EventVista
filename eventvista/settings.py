@@ -148,7 +148,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 ACCOUNT_LOGOUT_ON_GET = True
-LOGIN_URL = '/auth/login/'
+LOGIN_URL = '/accounts/login/'
 
 GOOGLE_CLIENT_ID = '8269531481-giedngbao8mbdqobarf8pvpmmgekrqtf.apps.googleusercontent.com'
 GOOGLE_CLIENT_SECRET = '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'
+
+GITHUB_CLIENT_ID = 'Ov23liX0E65WSAJnFICo'
+GITHUB_CLIENT_SECRET = 'fb32999c0525aa6999edf9230c64cf7ec3d748da'

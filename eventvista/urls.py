@@ -5,9 +5,9 @@ from django.urls import path, include
 from authuser.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('auth/', include('authuser.urls')),
     path('accounts/', include('authuser.urls')),
     path('attendee/', include('attendee.urls')),
+    path('organizer/', include('organizer.urls')),
 ]
 
 
