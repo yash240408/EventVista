@@ -1,0 +1,37 @@
+<!-- payment_page.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment Page</title>
+</head>
+<body>
+    <h1>Payment Page</h1>
+    <form action="{% url 'create_checkout_session' %}" method="post" id="payment-form">
+        {% csrf_token %}
+        <input type="hidden" name="amount" value="5000">
+        <input type="hidden" name="name" value="Test Product">
+        <button type="submit" id="submit">Pay</button>
+    </form>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        const stripe = Stripe('{{ stripe_publishable_key }}');
+        const paymentForm = document.getElementById('payment-form');
+
+        paymentForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const { id } = await fetch('{% url "create_checkout_session" %}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': '{{ csrf_token }}',
+                },
+                body: new URLSearchParams(new FormData(paymentForm))
+            }).then((response) => response.json());
+
+            stripe.redirectToCheckout({ sessionId: id });
+        });
+    </script>
+</body>
+</html>

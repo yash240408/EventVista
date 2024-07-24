@@ -1,5 +1,5 @@
 # authentication/views.py
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
@@ -8,6 +8,22 @@ from django.core.files.base import ContentFile
 from django.urls import reverse
 from django.conf import settings
 import requests
+from organizer.models import Event, Ticket
+
+
+
+def index(request):
+    events = Event.objects.all()
+    event_details = []
+
+    for event in events:
+        tickets = Ticket.objects.filter(event=event)
+        event_details.append({
+            'event': event,
+            'tickets': tickets
+        })
+    return render(request, 'index.html', {'event_details': event_details})
+
 
 @csrf_exempt
 def normal_signup(request):
@@ -22,8 +38,11 @@ def normal_signup(request):
             phone = request.POST.get("phone")
             role = request.POST.get("role")
             profile_picture = request.FILES.get('profile_picture')
+            gender = request.POST.get('gender')
+            pincode = request.POST.get('pincode')
+            age = request.POST.get('age')
 
-            if not all([name, email, password, phone, role, profile_picture]):
+            if not all([name, email, password, phone, role, profile_picture, gender, age, pincode]):
                 return render(request, 'signup.html', {'error': 'All fields are required.'})
 
             if User.objects.filter(email=email).exists():
@@ -37,7 +56,11 @@ def normal_signup(request):
                 email=email,
                 phone=phone,
                 role=role,
-                profile_picture=profile_picture
+                profile_picture=profile_picture,
+                gender=gender,
+                age=age,
+                pincode=pincode
+
             )
             new_user.set_password(password)
             new_user.save()
@@ -51,6 +74,8 @@ def normal_signup(request):
     except Exception as e:
         print("Normal Signup Exception:", e)
         return render(request, 'signup.html', {'error': 'An error occurred during signup.'})
+    
+
 @csrf_exempt
 def normal_login(request):
     if request.user.is_authenticated:
@@ -73,9 +98,11 @@ def normal_login(request):
 def user_logout(request):
     try:
         logout(request)
-    except:
-        pass
-    return redirect('login')
+        return redirect('login')
+    except Exception as e:
+        print("Error at logout:",e)
+        
+    
 
 
 @login_required
@@ -102,14 +129,19 @@ def additional_info(request):
                 if not social_user_info:
                     return redirect('login')
                 
+                print(social_user_info)
+                
                 email = social_user_info['email']
                 first_name = social_user_info['first_name']
                 last_name = social_user_info['last_name']
                 picture_url = social_user_info['picture_url']
                 phone = request.POST.get('phone')
                 role = request.POST.get('role')
+                gender = request.POST.get('gender')
+                age = request.POST.get('age')
+                pincode = request.POST.get('pincode')
 
-                if not all([phone, role]):
+                if not all([phone, role, gender, age, pincode]):
                     return render(request, 'additional_info.html', {'error': 'All fields are required.'})
 
                 if User.objects.filter(phone=phone).exists():
@@ -119,6 +151,9 @@ def additional_info(request):
                     'fullname': first_name + " " + last_name,
                     'phone': phone,
                     'role': role,
+                    'gender':gender,
+                    'age':age,
+                    'pincode':pincode
                 })
                 if created:
                     response = requests.get(picture_url)
@@ -147,6 +182,7 @@ def redirect_role_based(user):
     else:
         logout(user)
         return redirect('logout')  
+
 
 # ---------------------------------------------------------------------------------------------------------------------------------------------
 

@@ -1,124 +1,91 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  {% load static %}
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{% static 'assets/images/logo.svg' %}">
+    <title>EventVista | Login</title>
+    <!-- Simple bar CSS -->
+    <link rel="stylesheet" href="{% static 'css/simplebar.css' %}">
+    <!-- Fonts CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <!-- Icons CSS -->
+    <link rel="stylesheet" href="{% static 'css/feather.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Date Range Picker CSS -->
+    <link rel="stylesheet" href="{% static 'css/daterangepicker.css' %}">
+    <!-- App CSS -->
+    <link rel="stylesheet" href="{% static 'css/app-light.css' %}" id="lightTheme" disabled>
+    <link rel="stylesheet" href="{% static 'css/app-dark.css' %}" id="darkTheme">
+    <link rel="stylesheet" href="{% static 'css/newcss.css' %}">
+  </head>
+  <body class="dark">
+    <div class="wrapper vh-100">
+      <div class="row align-items-center h-100">
+        <form class="col-lg-3 col-md-4 col-10 mx-auto text-center" action="/accounts/login/" method="post">
+          {% csrf_token %}
+          <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="/">
+            <img src="{% static 'assets/images/logo.svg' %}" height="80px" width="80px" alt="Logo">
+          </a>
+          <h1 class="h6 mb-3">Log in</h1>
+          <div class="form-group">
+            <label for="inputEmail" class="sr-only">Email address</label>
+            <input type="email" id="inputEmail" class="form-control form-control-lg" placeholder="Email address" required="" autofocus="">
+          </div>
+          <div class="form-group">
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" id="inputPassword" class="form-control form-control-lg" placeholder="Password" required="">
+          </div>
+          <div class="checkbox mb-3">
+            <label>
+              <input type="checkbox" value="remember-me"> Stay logged in 
+            </label>
+          </div>
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+          <br>
+          <button class="btn btn-lg btn-block btn-github" onclick="window.location.href='/accounts/github/login'" type="button">
+            <i class="fab fa-github"></i> Log in with GitHub
+          </button>
+          <button class="btn btn-lg btn-block btn-google" onclick="window.location.href='/accounts/google/login'" type="button">
+            <i class="fab fa-google"></i> Log in with Google
+          </button>
+          <hr style="background-color: gainsboro; height: 2px; border: none;">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
+          <br>
 
-        .login-box {
-            max-width: 400px;
-            width: 100%;
-            background: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            box-sizing: border-box;
-            text-align: center;
-        }
-
-        .login-box h2 {
-            margin-bottom: 30px;
-            color: #333;
-        }
-
-        label {
-            display: block;
-            font-weight: bold;
-            margin-top: 10px;
-            color: #555;
-            text-align: left;
-        }
-
-        .login-box input[type="email"],
-        .login-box input[type="password"] {
-            width: calc(100% - 20px);
-            padding: 10px;
-            margin-top: 5px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-        .login-box input[type="submit"] {
-            background: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        .login-box input[type="submit"]:hover {
-            background: #45a049;
-        }
-
-        .login-options {
-            margin-top: 20px;
-        }
-
-        .login-options a {
-            display: inline-block;
-            margin: 10px;
-            padding: 10px 20px;
-            text-decoration: none;
-            color: white;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-
-        .login-options .google-login {
-            background-color: #db4437;
-        }
-
-        .login-options .github-login {
-            background-color: #333;
-        }
-
-        .error-message {
-            color: red;
-            margin-top: 20px;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="login-box">
-        <h2>Login</h2>
-        <form action="/accounts/login/" method="post">
-            {% csrf_token %}
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-
-            <input type="submit" value="Login">
-        </form>
-
-        <div class="login-options">
-            <a href="/accounts/google/login" class="google-login">Login with Google</a>
-            <a href="/accounts/github/login" class="github-login">Login with GitHub</a>
-        </div>
-
-        {% if error %}
-        <p class="error-message">{{ error }}</p>
-        {% endif %}
+        </form>          
+        <button class="btn btn-lg btn-block" type="button">
+            Don't have an Account? <a href="/accounts/register/" class="btn btn-link">Signup Now</a>
+        </button>
+        <p class="mt-5 mb-3 text-muted col-lg-3 col-md-4 col-10 mx-auto text-center">© 2024</p>
+      </div>
     </div>
-</body>
 
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/moment.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/simplebar.min.js' %}"></script>
+    <script src="{% static 'js/daterangepicker.js' %}"></script>
+    <script src="{% static 'js/jquery.stickOnScroll.js' %}"></script>
+    <script src="{% static 'js/tinycolor-min.js' %}"></script>
+    <script src="{% static 'js/config.js' %}"></script>
+    <script src="{% static 'js/apps.js' %}"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag()
+      {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'UA-56159088-1');
+    </script>
+  </body>
 </html>

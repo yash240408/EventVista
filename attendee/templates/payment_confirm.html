@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment Confirmation</title>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <h1>Confirm Payment for {{ event.name }}</h1>
+    <p>Ticket: {{ ticket.event_type }}</p>
+    <p>Quantity: {{ quantity }}</p>
+    <p>Total Amount: ${{ total_amount }}</p>
+
+    <button id="pay-button">Pay Now</button>
+
+    <script>
+        var stripe = Stripe('{{ stripe_public_key }}');
+        var clientSecret = '{{ client_secret }}';
+
+        document.getElementById('pay-button').addEventListener('click', function() {
+            stripe.confirmCardPayment(clientSecret, {
+                payment_method: {
+                    card: {
+                        // Here you would get the card details from a Stripe.js card element
+                    }
+                }
+            }).then(function(result) {
+                if (result.error) {
+                    // Show error to your customer (e.g., insufficient funds)
+                    console.log(result.error.message);
+                } else {
+                    // The payment has been processed!
+                    if (result.paymentIntent.status === 'succeeded') {
+                        // Show a success message to your customer
+                        console.log("Payment succeeded!");
+                        window.location.href = '{% url "payment_success" %}';
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

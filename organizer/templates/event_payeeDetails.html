@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Details</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Payment Details</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Attendee Name</th>
+                    <th>Event Name</th>
+                    <th>Ticket Type</th>
+                    <th>Amount</th>
+                    <th>Transaction ID</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for payment in payments %}
+                <tr>
+                    <td>{{ payment.attendee.fullname }}</td>
+                    <td>{{ payment.event.name }}</td>
+                    <td>{{ payment.ticket.name }}</td>
+                    <td>{{ payment.amount }}</td>
+                    <td>{{ payment.transaction_id }}</td>
+                    <td>{{ payment.created_at }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

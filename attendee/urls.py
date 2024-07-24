@@ -4,7 +4,8 @@ from attendee import views
 
 urlpatterns = [
     path('home/', views.home, name='attendee_dashboard'),
-    # path('login/', views.user_login, name='login'),
-    # path('logout/', views.user_logout, name='logout'),
-    # path('profile/', views.profile, name='profile'),
+    path('create_checkout_session/', views.create_checkout_session, name='create_checkout_session'),
+    path('payment-success/', views.payment_success, name='payment_success'),
+    path('payment-error/', views.payment_cancel, name='payment_error'),
+    path('payment-cancel/', views.payment_cancel, name='payment_cancel'),
 ]

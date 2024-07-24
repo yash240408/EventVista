@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="en">
+{% load static %}
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="{% static 'assets/images/logo.svg' %}">
+  <title>EventVista | Organizer | Add Event</title>
+  <!-- Simple bar CSS -->
+  <link rel="stylesheet" href="{% static 'css/simplebar.css' %}">
+  <!-- Fonts CSS -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+  <!-- Icons CSS -->
+  <link rel="stylesheet" href="{% static 'css/feather.css' %}">
+  <link rel="stylesheet" href="{% static 'css/select2.css' %}">
+  <link rel="stylesheet" href="{% static 'css/dropzone.css' %}">
+  <link rel="stylesheet" href="{% static 'css/uppy.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/jquery.steps.css' %}">
+  <link rel="stylesheet" href="{% static 'css/jquery.timepicker.css' %}">
+  <link rel="stylesheet" href="{% static 'css/quill.snow.css' %}">
+  <!-- Date Range Picker CSS -->
+  <link rel="stylesheet" href="{% static 'css/daterangepicker.css' %}">
+  <!-- App CSS -->
+  <link rel="stylesheet" href="{% static 'css/app-light.css' %}" id="lightTheme">
+  <link rel="stylesheet" href="{% static 'css/newcss.css' %}">
+</head>
+
+<body class="vertical light">
+  <div class="wrapper">
+    <nav class="topnav navbar navbar-light">
+      <button type="button" class="navbar-toggler text-muted mt-2 p-0 mr-3 collapseSidebar">
+        <i class="fe fe-menu navbar-toggler-icon"></i>
+      </button>
+      <ul class="nav">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-muted pr-0" href="#" id="navbarDropdownMenuLink" role="button"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="avatar avatar-sm mt-2">
+              <img src="{% static 'assets/avatars/face-1.jpg' %}" alt="..." class="avatar-img rounded-circle">
+            </span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="/organizer/profile/">Profile</a>
+            <a class="dropdown-item" href="/accounts/logout">Log Out</a>
+
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+    <aside class="sidebar-left border-right bg-white shadow" id="leftSidebar" data-simplebar>
+      <a href="#" class="btn collapseSidebar toggle-btn d-lg-none text-muted ml-2 mt-3" data-toggle="toggle">
+        <i class="fe fe-x"><span class="sr-only"></span></i>
+      </a>
+      <nav class="vertnav navbar navbar-light">
+        <!-- Branding -->
+        <div class="w-100 mb-4 d-flex">
+          <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="/organizer/home/">
+            <img src="{% static 'assets/images/logo.svg' %}" height="80px" width="80px" alt="Logo">
+          </a>
+        </div>
+
+        <!-- New Pages Section -->
+        <ul class="navbar-nav flex-fill w-100 mb-2">
+          <li class="nav-item {% if request.path == '/organizer/home/' %}active{% endif %}">
+            <a class="nav-link" href="/organizer/home/">
+              <i class="fe fe-home fe-16"></i>
+              <span class="ml-3 item-text">Home Page</span>
+            </a>
+          </li>
+          <li class="nav-item {% if request.path == '/organizer/add_event/' %}active{% endif %}">
+            <a class="nav-link" href="/organizer/add_event/">
+              <i class="fe fe-plus fe-16"></i>
+              <span class="ml-3 item-text">Add Event</span>
+            </a>
+          </li>
+          <li class="nav-item {% if request.path == '/organizer/see_events/' %}active{% endif %}">
+            <a class="nav-link" href="/organizer/see_events/">
+              <i class="fe fe-calendar fe-16"></i>
+              <span class="ml-3 item-text">Event</span>
+            </a>
+          </li>
+          <li class="nav-item {% if request.path == '/organizer/see_payments/' %}active{% endif %}">
+            <a class="nav-link" href="/organizer/see_payments/">
+              <i class="fe fe-credit-card fe-16"></i>
+              <span class="ml-3 item-text">Payment Details</span>
+            </a>
+          </li>
+          <li class="nav-item {% if request.path == '/organizer/share_events/' %}active{% endif %}">
+            <a class="nav-link" href="/organizer/share_events/">
+              <i class="fe fe-share fe-16"></i>
+              <span class="ml-3 item-text">Event Sharing</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main role="main" class="main-content">
+      <div class="container-fluid">
+        <div class="row justify-content-center">
+          <div class="col-12">
+            <div class="row align-items-center mb-2">
+              <!-- Event Form Start -->
+              <div class="col-12">
+                <h2 class="text-center mb-4">Add Event</h2>
+                <!-- <form action="/organizer/add_event/" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                      <label for="eventName">Event Name</label>
+                      <input type="text" class="form-control" id="eventName" name="name" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="eventDescription">Description</label>
+                      <textarea class="form-control" id="eventDescription" name="description" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                      <label for="eventDate">Date</label>
+                      <input type="date" class="form-control" id="eventDate" name="date" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="eventTime">Time</label>
+                      <input type="time" class="form-control" id="eventTime" name="time" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="eventLocation">Location</label>
+                      <textarea class="form-control" id="eventLocation" name="location" required></textarea>
+                    </div>
+                    <div class="form-group">
+                      <label for="eventCategories">Categories</label>
+                      <select class="form-control" id="eventCategories" name="categories" required>
+                        <option value="" disabled selected>Select category</option>
+                        <option value="conference">Conference</option>
+                        <option value="workshop">Workshop</option>
+                        <option value="seminar">Seminar</option>
+                        <option value="webinar">Webinar</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="eventPicture">Event Picture</label>
+                      <input type="file" class="form-control-file" id="eventPicture" name="event_picture" accept="image/*" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="eventType">Event Type</label>
+                      <select class="form-control" id="eventType" name="ticket_type" required>
+                        <option value="" disabled selected>Select Ticket type</option>
+                        <option value="general">General Admission</option>
+                        <option value="vip">VIP</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="eventPrice">Price</label>
+                      <input type="number" class="form-control" id="eventPrice" name="ticket_price" min="1" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="eventQuantity">Quantity</label>
+                      <input type="number" class="form-control" id="eventQuantity" name="ticket_quantity" min="1" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Event</button>
+                  </form> -->
+                <form action="/organizer/add_event/" method="post" enctype="multipart/form-data" id="eventForm">
+                  {% csrf_token %}
+
+                  <div class="form-group">
+                    <label for="eventName">Event Name</label>
+                    <input type="text" class="form-control" id="eventName" name="name" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="eventDescription">Description</label>
+                    <textarea class="form-control" id="eventDescription" name="description" rows="4"
+                      required></textarea>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="eventDate">Date</label>
+                      <input type="date" class="form-control" id="eventDate" name="date" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="eventTime">Time</label>
+                      <input type="time" class="form-control" id="eventTime" name="time" required>
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="eventCategories">Categories</label>
+                      <select class="form-control" id="eventCategories" name="categories" required>
+                        <option value="" disabled selected>Select category</option>
+                        <option value="conference">Conference</option>
+                        <option value="workshop">Workshop</option>
+                        <option value="seminar">Seminar</option>
+                        <option value="webinar">Webinar</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="eventType">Ticket Type</label>
+                      <select class="form-control" id="eventType" name="ticket_type" required>
+                        <option value="" disabled selected>Select Ticket Type</option>
+                        <option value="general">General Admission</option>
+                        <option value="vip">VIP</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="eventPrice">Ticket Price</label>
+                      <input type="number" class="form-control" id="eventPrice" name="ticket_price" min="1" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="eventQuantity">Ticket Quantity</label>
+                      <input type="number" class="form-control" id="eventQuantity" min="1" name="ticket_quantity"
+                        required>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="eventLocation">Event Location</label>
+                    <textarea class="form-control" id="eventLocation" name="location" required></textarea>
+                  </div>
+
+                  <!-- File input for event_picture -->
+                  <div class="form-group">
+                    <label for="eventPicture">Event Picture</label>
+                    <input type="file" class="form-control-file" id="eventPicture" name="event_picture" accept="image/*"
+                      required>
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-lg mx-auto d-block">Add Event</button>
+                </form>
+
+
+              </div>
+              <!-- Event Form End -->
+            </div>
+          </div> <!-- Striped rows -->
+        </div> <!-- .row-->
+      </div> <!-- .col-12 -->
+  </div> <!-- .row -->
+  </div> <!-- .container-fluid -->
+  </main> <!-- main -->
+  </div> <!-- .wrapper -->
+
+  <!-- jQuery -->
+  <script src="{% static 'js/dropzone.min.js' %}"></script>
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/popper.min.js' %}"></script>
+  <script src="{% static 'js/moment.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/simplebar.min.js' %}"></script>
+  <script src="{% static 'js/daterangepicker.js' %}"></script>
+  <script src="{% static 'js/jquery.stickOnScroll.js' %}"></script>
+  <script src="{% static 'js/tinycolor-min.js' %}"></script>
+  <script src="{% static 'js/config.js' %}"></script>
+  <script src="{% static 'js/apps.js' %}"></script>
+  <script src="{% static 'js/d3.min.js' %}"></script>
+  <script src="{% static 'js/topojson.min.js' %}"></script>
+  <script src="{% static 'js/datamaps.all.min.js' %}"></script>
+  <script src="{% static 'js/datamaps-zoomto.js' %}"></script>
+  <script src="{% static 'js/datamaps.custom.js' %}"></script>
+  <script src="{% static 'js/Chart.min.js' %}"></script>
+  <script>
+    /* defind global options */
+    Chart.defaults.global.defaultFontFamily = base.defaultFontFamily;
+    Chart.defaults.global.defaultFontColor = colors.mutedColor;
+  </script>
+  <script src="{% static 'js/gauge.min.js' %}"></script>
+  <script src="{% static 'js/jquery.sparkline.min.js' %}"></script>
+  <script src="{% static 'js/apexcharts.min.js' %}"></script>
+  <script src="{% static 'js/apexcharts.custom.js' %}"></script>
+  <script src="{% static 'js/jquery.mask.min.js' %}"></script>
+  <script src="{% static 'js/select2.min.js' %}"></script>
+  <script src="{% static 'js/jquery.steps.min.js' %}"></script>
+  <script src="{% static 'js/jquery.validate.min.js' %}"></script>
+  <script src="{% static 'js/jquery.timepicker.js' %}"></script>
+  <script src="{% static 'js/uppy.min.js' %}"></script>
+  <script src="{% static 'js/quill.min.js' %}"></script>
+  <script>
+    $('.select2').select2(
+      {
+        theme: 'bootstrap4',
+      });
+    $('.select2-multi').select2(
+      {
+        multiple: true,
+        theme: 'bootstrap4',
+      });
+    $('.drgpicker').daterangepicker(
+      {
+        singleDatePicker: true,
+        timePicker: false,
+        showDropdowns: true,
+        locale:
+        {
+          format: 'MM/DD/YYYY'
+        }
+      });
+    $('.time-input').timepicker(
+      {
+        'scrollDefault': 'now',
+        'zindex': '9999' /* fix modal open */
+      });
+    /** date range picker */
+    if ($('.datetimes').length) {
+      $('.datetimes').daterangepicker(
+        {
+          timePicker: true,
+          startDate: moment().startOf('hour'),
+          endDate: moment().startOf('hour').add(32, 'hour'),
+          locale:
+          {
+            format: 'M/DD hh:mm A'
+          }
+        });
+    }
+    var start = moment().subtract(29, 'days');
+    var end = moment();
+
+    function cb(start, end) {
+      $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+    }
+    $('#reportrange').daterangepicker(
+      {
+        startDate: start,
+        endDate: end,
+        ranges:
+        {
+          'Today': [moment(), moment()],
+          'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+          'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+          'This Month': [moment().startOf('month'), moment().endOf('month')],
+          'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        }
+      }, cb);
+    cb(start, end);
+    $('.input-placeholder').mask("00/00/0000",
+      {
+        placeholder: "__/__/____"
+      });
+    $('.input-zip').mask('00000-000',
+      {
+        placeholder: "____-___"
+      });
+    $('.input-money').mask("#.##0,00",
+      {
+        reverse: true
+      });
+    $('.input-phoneus').mask('(000) 000-0000');
+    $('.input-mixed').mask('AAA 000-S0S');
+    $('.input-ip').mask('0ZZ.0ZZ.0ZZ.0ZZ',
+      {
+        translation:
+        {
+          'Z':
+          {
+            pattern: /[0-9]/,
+            optional: true
+          }
+        },
+        placeholder: "___.___.___.___"
+      });
+    // editor
+    var editor = document.getElementById('editor');
+    if (editor) {
+      var toolbarOptions = [
+        [
+          {
+            'font': []
+          }],
+        [
+          {
+            'header': [1, 2, 3, 4, 5, 6, false]
+          }],
+        ['bold', 'italic', 'underline', 'strike'],
+        ['blockquote', 'code-block'],
+        [
+          {
+            'header': 1
+          },
+          {
+            'header': 2
+          }],
+        [
+          {
+            'list': 'ordered'
+          },
+          {
+            'list': 'bullet'
+          }],
+        [
+          {
+            'script': 'sub'
+          },
+          {
+            'script': 'super'
+          }],
+        [
+          {
+            'indent': '-1'
+          },
+          {
+            'indent': '+1'
+          }], // outdent/indent
+        [
+          {
+            'direction': 'rtl'
+          }], // text direction
+        [
+          {
+            'color': []
+          },
+          {
+            'background': []
+          }], // dropdown with defaults from theme
+        [
+          {
+            'align': []
+          }],
+        ['clean'] // remove formatting button
+      ];
+      var quill = new Quill(editor,
+        {
+          modules:
+          {
+            toolbar: toolbarOptions
+          },
+          theme: 'snow'
+        });
+    }
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+      'use strict';
+      window.addEventListener('load', function () {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.getElementsByClassName('needs-validation');
+        // Loop over them and prevent submission
+        var validation = Array.prototype.filter.call(forms, function (form) {
+          form.addEventListener('submit', function (event) {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
+    })();
+  </script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'UA-56159088-1');
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Get the current page URL
+      var currentPage = window.location.pathname.split('/').pop();
+
+      // Get all nav links
+      var navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+
+      navLinks.forEach(function (link) {
+        // Get the href attribute of the link
+        var linkPath = new URL(link.href).pathname.split('/').pop();
+
+        // Check if the href matches the current page URL
+        if (linkPath === currentPage) {
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
+  <script>
+    function toggleSidebar() {
+      var sidebar = document.getElementById("sidebar");
+      var main = document.getElementById("main");
+
+      if (sidebar.style.width === "250px") {
+        sidebar.style.width = "0";
+        main.style.marginLeft = "0";
+      } else {
+        sidebar.style.width = "250px";
+        main.style.marginLeft = "250px";
+      }
+    }
+  </script>
+</body>
+
+</html>

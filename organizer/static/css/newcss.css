@@ -1,0 +1,32 @@
+
+     
+      .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px; /* Line thickness */
+        display: block;
+        margin-top: 5px; /* Space between text and line */
+        left: 0;
+        background: currentColor; /* Line color same as text */
+        transition: width 0.3s;
+    }
+  
+    
+    .nav-link.active {
+        background-color: #f0f0f0 ; /* Grey background for active link */
+    }
+    .nav-link.active i,.nav-link.active span {
+      color: #0045ce; /* Active link color */
+      background-color: #f0f0f0 ; /* Grey background for active link */
+    }
+      
+.btn-github:hover{
+  background-color: #333;
+  color: white;
+}
+
+.btn-google:hover{
+  background-color: #dd4b39;
+  color: white;
+}

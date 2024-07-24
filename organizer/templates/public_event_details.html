@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 90%;
+            max-width: 600px;
+        }
+
+        .event-header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .event-details {
+            padding: 20px;
+        }
+
+        .event-details p {
+            margin: 0 0 20px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .ticket-info .ticket-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .ticket-info .ticket-row:last-child {
+            border-bottom: none;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .event-location-time {
+            margin: 20px 0;
+        }
+
+        .event-location-time .location,
+        .event-location-time .time {
+            margin-bottom: 10px;
+        }
+
+        .login-container {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .login-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .login-button:hover {
+            background-color: #45a049;
+        }
+
+        @media (max-width: 600px) {
+            .ticket-info .ticket-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="event-header">
+            <h1 id="event-name">{{event.name}}</h1>
+        </div>
+        <div class="event-details">
+            <p id="event-description">{{event.description}}</p>
+            <div class="ticket-info">
+                <div class="ticket-row">
+                    <span class="label">Ticket Price:</span>
+                    <span class="value" id="ticket-price">${{ticket.price}}</span>
+                </div>
+                <div class="ticket-row">
+                    <span class="label">Ticket Type:</span>
+                    <span class="value" id="ticket-type">{{ticket.event_type|upper}}</span>
+                </div>
+                <div class="ticket-row">
+                    <span class="label">Remaining Tickets:</span>
+                    <span class="value" id="ticket-quantity">{{ticket.remaining_quantity}}</span>
+                </div>
+            </div>
+            <div class="event-location-time">
+                <div class="location">
+                    <h3>Location:</h3>
+                    <p id="event-location">{{event.location}}</p>
+                </div>
+                <div class="time">
+                    <h3>Time:</h3>
+                    <p id="event-time">{{event.date}} <br>{{event.time}} Onwards</p>
+                </div>
+            </div>
+        </div>
+        <div class="login-container">
+            <button class="login-button" onclick="window.location.href='/accounts/login'">Login to Buy Ticket</button>
+        </div>
+    </div>
+</body>
+
+</html>

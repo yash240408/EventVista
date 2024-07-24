@@ -1,145 +1,149 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+{% load static %}
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Registration Form</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f9fc;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        
-        h2 {
-            color: #333;
-            text-align: center;
-        }
-        
-        form {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        
-        label {
-            font-weight: bold;
-            margin-top: 10px;
-            display: block;
-            color: #555;
-        }
-        
-        input[type="text"],
-        input[type="email"],
-        input[type="password"],
-        input[type="tel"],
-        input[type="file"],
-        select {
-            width: calc(100% - 20px);
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        
-        .submit-container {
-            text-align: center;
-        }
-        
-        input[type="submit"] {
-            background-color: #28a745;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-top: 20px;
-        }
-        
-        input[type="submit"]:hover {
-            background-color: #218838;
-        }
-        
-        .login-options {
-            text-align: center;
-            margin-top: 20px;
-        }
-        
-        .login-options a {
-            display: inline-block;
-            margin: 10px;
-            padding: 10px 20px;
-            text-decoration: none;
-            color: white;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-        
-        .login-options .google-login {
-            background-color: #db4437;
-        }
-        
-        .login-options .github-login {
-            background-color: #333;
-        }
-        
-        .error-message {
-            color: red;
-            text-align: center;
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="{% static 'assets/images/logo.svg' %}">
+  <title>EventVista | SignUp</title>
+  <!-- Simple bar CSS -->
+  <link rel="stylesheet" href="{% static 'css/simplebar.css' %}">
+
+  <!-- Fonts CSS -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+  <!-- Icons CSS -->
+  <link rel="stylesheet" href="{% static 'css/feather.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <!-- Date Range Picker CSS -->
+  <link rel="stylesheet" href="{% static 'css/daterangepicker.css' %}">
+  <!-- App CSS -->
+  <link rel="stylesheet" href="{% static 'css/app-light.css' %}" id="lightTheme" disabled>
+  <link rel="stylesheet" href="{% static 'css/app-dark.css' %}" id="darkTheme">
+  <link rel="stylesheet" href="{% static 'css/newcss.css' %}">
 </head>
 
-<body>
-    <form action="/accounts/register/" method="post" enctype="multipart/form-data">
-        <h2>User Registration</h2>
+<body class="dark">
+  <div class="wrapper vh-100">
+    <div class="row align-items-center h-100">
+      <form class="col-lg-6 col-md-8 col-10 mx-auto" action="/accounts/signup/" method="post"
+        enctype="multipart/form-data">
         {% csrf_token %}
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required><br>
-
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br>
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br>
-
-        <label for="phone">Phone:</label>
-        <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required><br>
-
-        <label for="profile_picture">Profile Picture:</label>
-        <input type="file" id="profile_picture" name="profile_picture" accept="image/*" required><br>
-
-        <label for="role">Role:</label>
-        <select id="role" name="role" required>
-            <option value="" disabled selected>Select a role</option>
-            <option value="attendee">Attendee</option>
+        <div class="mx-auto text-center my-4">
+          <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="/">
+            <img src="{% static 'assets/images/logo.svg' %}" height="80px" width="80px" alt="Logo">
+          </a>
+          <h2 class="my-3">Sign Up</h2>
+        </div>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input type="tel" class="form-control" id="phone" name="phone" required>
+        </div>
+        <div class="form-group">
+          <label for="age">Age</label>
+          <input type="number" class="form-control" id="age" name="age" required>
+        </div>
+        <div class="form-group">
+          <label for="gender">Gender</label>
+          <select class="form-control" id="gender" name="gender" required>
+            <option value="" disabled selected>Select gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="non-binary">Non-binary</option>
+            <option value="prefer-not-to-say">Prefer not to say</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="zipcode">Zip Code</label>
+          <select class="form-control" id="zipcode" name="zipcode">
+            <option value="" selected disabled>Select your pincode</option>
+            <option value="A1A1A1">A1A 1A1 - Newfoundland and Labrador</option>
+            <option value="B1B1B1">B1B 1B1 - Nova Scotia</option>
+            <option value="C1A1A1">C1A 1A1 - Prince Edward Island</option>
+            <option value="E1A1A1">E1A 1A1 - New Brunswick</option>
+            <option value="G1A1A1">G1A 1A1 - Quebec</option>
+            <option value="H1A1A1">H1A 1A1 - Montreal, Quebec</option>
+            <option value="J0A1A0">J0A 1A0 - Quebec</option>
+            <option value="K1A0B1">K1A 0B1 - Ottawa, Ontario</option>
+            <option value="L5B4A1">L5B 4A1 - Mississauga, Ontario</option>
+            <option value="M5H2N2">M5H 2N2 - Toronto, Ontario</option>
+            <option value="N2L3G1">N2L 3G1 - Waterloo, Ontario</option>
+            <option value="P3E6B5">P3E 6B5 - Sudbury, Ontario</option>
+            <option value="R3C3A3">R3C 3A3 - Winnipeg, Manitoba</option>
+            <option value="S4P3Y2">S4P 3Y2 - Regina, Saskatchewan</option>
+            <option value="T5J1N9">T5J 1N9 - Edmonton, Alberta</option>
+            <option value="V6B3K9">V6B 3K9 - Vancouver, British Columbia</option>
+            <option value="X0A0H0">X0A 0H0 - Iqaluit, Nunavut</option>
+            <option value="Y1A0A1">Y1A 0A1 - Whitehorse, Yukon</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="role">Role</label>
+          <select class="form-control" id="role" name="role" required>
+            <option value="" disabled selected>Select role</option>
             <option value="organizer">Organizer</option>
-        </select><br>
-
-        <div class="submit-container">
-            <input type="submit" value="Submit">
+            <option value="attendee">Attendee</option>
+          </select>
         </div>
-
-        <div class="login-options">
-            <a href="/accounts/google/login" class="google-login">Sign Up with Google</a>
-            <a href="/accounts/github/login" class="github-login">Sign Up with Github</a>
+        <div class="form-group">
+          <label for="profileImage">Profile Image</label>
+          <input type="file" class="form-control-file" id="profileImage" name="profileImage" accept="image/*">
         </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+        <hr style="background-color: gainsboro; height: 2px; border: none;">
 
-        {% if error %}
-        <p class="error-message">{{ error }}</p>
-        {% endif %}
-    </form>
+
+        <button class="btn btn-lg btn-block btn-github" type="button">
+          <i class="fab fa-github"></i> Log in with GitHub
+        </button>
+        <button class="btn btn-lg btn-block btn-google" type="button">
+          <i class="fab fa-google"></i> Log in with Google
+        </button>
+
+        <p class="mt-5 mb-3 text-muted col-lg-3 col-md-4 col-10 mx-auto text-center">© 2024</p>
+      </form>
+    </div>
+  </div>
+
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/popper.min.js' %}"></script>
+  <script src="{% static 'js/moment.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/simplebar.min.js' %}"></script>
+  <script src="{% static 'js/daterangepicker.js' %}"></script>
+  <script src="{% static 'js/jquery.stickOnScroll.js' %}"></script>
+  <script src="{% static 'js/tinycolor-min.js' %}"></script>
+  <script src="{% static 'js/config.js' %}"></script>
+  <script src="{% static 'js/apps.js' %}"></script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-56159088-1');
+  </script>
 </body>
 
 </html>

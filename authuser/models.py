@@ -22,8 +22,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=15, unique=True)
     fullname = models.CharField(max_length=255)
-    profile_picture = models.ImageField(upload_to='profile_pictures/')
+    profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
     role = models.CharField(max_length=20)
+
+    gender = models.CharField(max_length=10, choices=[('male', 'Male'), ('female', 'Female'), ('other', 'Other')], blank=True, null=True)
+    age = models.PositiveIntegerField(blank=True, null=True)
+    pincode = models.CharField(max_length=10, blank=True, null=True)
 
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
@@ -35,15 +39,3 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
-
-
-class Profile(models.Model):
-    phone = models.CharField(max_length=20, blank=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    bio = models.TextField(blank=True)
-    website = models.URLField(blank=True)
-    address = models.CharField(max_length=255, blank=True)
-    profile_picture = models.ImageField(upload_to='profile_pictures/', null=True, blank=True)
-
-    def __str__(self):
-        return f'Profile for {self.user.email}'

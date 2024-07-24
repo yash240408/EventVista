@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Event</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Add New Event</h1>
+        <form action="/organizer/add_event/" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="name">Event Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" required></textarea>
+
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="time">Time:</label>
+            <input type="time" id="time" name="time" required>
+
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" required>
+
+            <label for="categories">Categories:</label>
+            <select id="categories" name="categories" required>
+                <option value="">Select a category</option>
+                <option value="conference">Conference</option>
+                <option value="seminar">Seminar</option>
+                <option value="workshop">Workshop</option>
+                <option value="webinar">Webinar</option>
+                <option value="trade_show">Trade Show</option>
+                <option value="expo">Expo</option>
+                <option value="networking_event">Networking Event</option>
+                <option value="fundraiser">Fundraiser</option>
+                <option value="corporate_event">Corporate Event</option>
+                <option value="product_launch">Product Launch</option>
+                <option value="award_ceremony">Award Ceremony</option>
+                <option value="gala">Gala</option>
+                <option value="banquet">Banquet</option>
+                <option value="festival">Festival</option>
+                <option value="concert">Concert</option>
+                <option value="theater_performance">Theater Performance</option>
+                <option value="sports_event">Sports Event</option>
+                <option value="birthday_party">Birthday Party</option>
+                <option value="wedding">Wedding</option>
+                <option value="anniversary">Anniversary</option>
+                <option value="community_event">Community Event</option>
+                <option value="charity_event">Charity Event</option>
+                <option value="press_conference">Press Conference</option>
+                <option value="training">Training</option>
+                <option value="team_building">Team Building</option>
+                <option value="other">Other</option>
+            </select>
+
+
+            <label for="ticket_type">Ticket Type:</label>
+            <select id="ticket_type" name="ticket_type" required>
+                <option value="">Select a ticket type</option>
+                <option value="general_admission">General Admission</option>
+                <option value="vip">VIP</option>
+            </select>
+
+
+            <label for="ticket_price">Ticket Price:</label>
+            <input type="number" id="ticket_price" name="ticket_price" required>
+
+            <label for="ticket_quantity">Ticket Quantity:</label>
+            <input type="number" id="ticket_quantity" name="ticket_quantity" required>
+
+            <label for="event_picture">Event Picture:</label>
+            <input type="file" id="event_picture" name="event_picture" required>
+
+            <button type="submit">Add Event</button>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        flatpickr("#date", {
+            enableTime: false,
+            dateFormat: "Y-m-d",
+        });
+
+        flatpickr("#time", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+        });
+    </script>
+</body>
+
+</html>
