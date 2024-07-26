@@ -1,0 +1,217 @@
+
+     
+      .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px; /* Line thickness */
+        display: block;
+        margin-top: 5px; /* Space between text and line */
+        left: 0;
+        background: currentColor; /* Line color same as text */
+        transition: width 0.3s;
+    }
+  
+    
+    .nav-link.active {
+        background-color: #f0f0f0 ; /* Grey background for active link */
+    }
+    .nav-link.active i,.nav-link.active span {
+      color: #0045ce; /* Active link color */
+      background-color: #f0f0f0 ; /* Grey background for active link */
+    }
+      
+.btn-github{
+  background-color: #333;
+  color: white;
+}
+
+.btn-google{
+  background-color: #dd4b39;
+  color: white;
+}
+
+.event_section {
+  margin-top: 20px;
+}
+
+.category_section {
+  margin-bottom: 30px;
+}
+
+.slider-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.slider {
+  overflow: hidden;
+  position: relative;
+}
+
+.slider-wrapper {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.event_card {
+  margin-right: 15px;
+  flex: 0 0 auto;
+}
+
+.slider-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.slider-nav-left {
+  left: 0;
+}
+
+.slider-nav-right {
+  right: 0;
+}
+
+.event_thumb img {
+  width: 100px;
+  height: auto;
+  margin-bottom: 18px;
+}
+
+.event_card {
+  margin-right: 15px; /* Adjust this value to increase/decrease space between cards */
+  flex: 0 0 auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for transform and box-shadow */
+}
+
+.event_card:hover {
+  transform: translateY(-5px); /* Slight upward movement */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+}
+
+/* Additional styling to make sure the layout and images are consistent */
+.event_thumb img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px; /* Optional: adds a slight rounding to image corners */
+}
+
+.buy_btn {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+.event-detail-page {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.full-event-card {
+  display: flex;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 100%;
+  max-width: 1200px;
+  position: relative;
+}
+
+.event-image-container {
+  flex: 1;
+}
+
+.event-image-container img {
+  width: 100%;
+  height: auto;
+}
+
+.event-info-container {
+  flex: 2;
+  padding: 20px;
+  position: relative;
+}
+
+.share {
+  position: absolute;
+  top: 20px; /* Adjust as needed */
+  right: 20px; /* Adjust as needed */
+  cursor: pointer;
+}
+
+.share i {
+  font-size: 18px; /* Set icon size */
+}
+
+.share-menu {
+  display: none; /* Hidden by default */
+  width: 100px;
+  position: absolute;
+  top: 100%; /* Position below the icon */
+  right: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  z-index: 1000;
+}
+
+.share-menu a {
+  display: block;
+  padding: 10px;
+  color: #333;
+  text-decoration: none;
+  font-size: 11px;
+  border-bottom: 1px solid #ddd;
+}
+
+
+
+.share-menu i {
+  margin-right: 8px;
+}
+
+.share-menu a:hover {
+  background: #f4f4f4;
+  color: #007bff;
+}
+
+/* Show the menu on hover */
+.share:hover .share-menu {
+  display: block;
+}
+
+.event-title {
+  margin: 0 0 10px;
+}
+
+.buy-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.event-description {
+  margin-top: 20px;
+}
+
+.page-header {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.page-header h2 {
+  font-size: 24px;
+  color: #333;
+}

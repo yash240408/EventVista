@@ -101,4 +101,71 @@ def home(request):
         tickets = Ticket.objects.filter(event=event)
         event_details.append({'event': event, 'tickets': tickets})
     
-    return render(request, 'dashboard.html', {'event_details': event_details})
+    return render(request, 'attendee_dashboard.html', {'event_details': event_details})
+
+
+def event_history(request):
+    event_details = []
+    events = Event.objects.all()
+    for event in events:
+        tickets = Ticket.objects.filter(event=event)
+        event_details.append({'event': event, 'tickets': tickets})
+    
+    return render(request, 'attendee_orderhistory.html', {'event_details': event_details})
+
+
+def event(request):
+    event_details = []
+    events = Event.objects.all()
+    for event in events:
+        tickets = Ticket.objects.filter(event=event)
+        event_details.append({'event': event, 'tickets': tickets})
+    
+    return render(request, 'attendee_event.html', {'event_details': event_details})
+
+
+
+@login_required
+def profile(request):
+    user = request.user
+    
+    if request.method == 'POST':
+        # Retrieve data from form submission
+        fullname = request.POST.get('fullname')
+        pincode = request.POST.get('pincode')
+        gender = request.POST.get('gender')
+        age = request.POST.get('age')
+        profile_picture = request.FILES.get('profile_picture')
+
+        if fullname:
+            user.fullname = fullname
+        if pincode:
+            user.pincode = pincode
+        if gender:
+            user.gender = gender
+        if age:
+            try:
+                user.age = int(age)
+            except ValueError:
+                pass
+        
+        if profile_picture:
+            user.profile_picture = profile_picture
+        
+        user.save()
+        
+        # Redirect to profile page after saving
+        return redirect('attendee_dashboard')
+
+    user_details = {
+        'fullname': user.fullname,
+        'email': user.email,
+        'phone': user.phone,
+        'role': user.role,
+        'profile_picture': user.profile_picture.url if user.profile_picture else None,
+        'pincode': user.pincode,
+        'gender': user.gender,
+        'age': user.age
+    }
+    
+    return render(request, 'attendee_profile.html', {'user_details': user_details})

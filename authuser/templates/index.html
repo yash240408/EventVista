@@ -1,51 +1,413 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Event List</title>
+<!doctype html>
+<html lang="en">
+  {% load static %}
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{% static 'assets/images/logo.svg' %}">
+    <title>EventVista | Organizer | Add Event</title>
+    <!-- Simple bar CSS -->
+    <link rel="stylesheet" href="{% static 'css/simplebar.css' %}">
+    <!-- Fonts CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <!-- Icons CSS -->
+    <link rel="stylesheet" href="{% static 'css/feather.css' %}">
+    <link rel="stylesheet" href="{% static 'css/select2.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dropzone.css' %}">
+    <link rel="stylesheet" href="{% static 'css/uppy.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery.steps.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery.timepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'css/quill.snow.css' %}">
+    <!-- Date Range Picker CSS -->
+    <link rel="stylesheet" href="{% static 'css/daterangepicker.css' %}">
+    <!-- App CSS -->
+    <link rel="stylesheet" href="{% static 'css/app-light.css' %}" id="lightTheme">
+    <link rel="stylesheet" href="{% static 'css/newcss.css' %}">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            padding: 20px;
-        }
-        .event {
-            background: #fff;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .event h2 {
-            margin-top: 0;
-        }
-        .ticket {
-            margin-top: 10px;
-            padding: 10px;
-            background: #e9e9e9;
-            border-radius: 5px;
-        }
+      body {
+        min-width: 900px;
+        max-width: 1200px; /* Set a maximum width for the body */
+        margin: 0 auto; /* Center the content */
+        padding: 20px; /* Add padding to avoid touching the screen edges */
+      }
+    
+      .active a {
+        background-color: gainsboro;
+      }
+    
+      .topnav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 20px;
+        background-color: #f8f9fa;
+      }
+    
+      .navbar-brand {
+        float: left;
+        display: flex;
+      }
+
+      .logo {
+        height: 40px;
+        margin-right: 10px;
+      }
+
+      .website-name {
+        font-size: 1.5rem;
+        color: #333;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+    
+      .nav {
+        display: flex;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        flex-grow: 1;
+        justify-content: center;
+      }
+    
+      .nav-item {
+        margin: 0 10px;
+      }
+    
+      .nav-link {
+        position: relative;
+        text-decoration: none;
+        color: #6c757d;
+      }
+    
+      .nav-link::after {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+        height: 2px;
+        background-color: gainsboro;
+        width: 0;
+        transition: width 0.3s ease;
+      }
+    
+      .nav-link:hover::after {
+        width: 100%;
+      }
+    
+      .img-fluid {
+        width: 450px;
+        height: 590px;
+        object-fit: cover;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px; /* Add space below images */
+      }
+    
+      .content-title {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+    
+      .content-text {
+        font-size: 1rem;
+        color: #333;
+        line-height: 1.6;
+      }
+    
+      .main-content {
+        padding: 20px;
+      }
+    
+      .quote {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    
+      .quote-text {
+        font-family: 'Anton', sans-serif;
+        font-size: 72px;
+        color: transparent;
+        text-align: center;
+        -webkit-background-clip: text;
+        background-clip: text;
+        background-image: url('https://th.bing.com/th/id/OIP.arMvnWBTvmjJ00Wwa4mQkgHaFS?rs=1&pid=ImgDetMain');
+        background-size: cover;
+        background-position: center;
+        display: inline-block;
+        padding: 20px;
+      }
+    
+      .quote {
+        padding: 40px;
+        text-align: center;
+      }
+    
+      .content-section {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px; /* Add space between rows */
+        justify-content: space-between; /* Distribute space between rows */
+      }
+
+    .footer {
+    background-color:gainsboro;
+    padding: 20px 0;
+    margin-top: 18px;
+    }
+
+  .footer-title {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .footer-text {
+    font-size: 0.9rem;
+    color: #6c757d;
+    line-height: 1.6;
+  }
+
+  .footer-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .footer-nav li {
+    margin-bottom: 5px;
+  }
+
+  .footer-nav li a {
+    text-decoration: none;
+    color: #6c757d;
+    transition: color 0.3s;
+  }
+
+  .footer-nav li a:hover {
+    color: #007bff;
+  }
+
+  .footer-nav li a:focus {
+    color: #0056b3;
+  }
+
+  .footer-nav li a:active {
+    color: #00397b;
+  }
+
+  .footer-contact {
+    font-size: 0.9rem;
+    color: #6c757d;
+    line-height: 1.6;
+  }
+
+  .footer-contact p {
+    margin: 0;
+  }
+
+  .footer-contact p + p {
+    margin-top: 5px;
+  }
+
+  .footer-copyright {
+    font-size: 0.8rem;
+    color: #6c757d;
+    margin-top: 10px;
+  }
     </style>
-</head>
-<body>
-    <h1>All Events</h1>
-    {% for detail in event_details %}
-        <div class="event">
-            <h2>{{ detail.event.name }}</h2>
-            <p><strong>Description:</strong> {{ detail.event.description }}</p>
-            <p><strong>Date:</strong> {{ detail.event.date }}</p>
-            <p><strongTime:</strong> {{ detail.event.time }}</p>
-            <p><strong>Location:</strong> {{ detail.event.location }}</p>
-            <p><strong>Categories:</strong> {{ detail.event.categories }}</p>
-            <img src="{{ detail.event.event_picture.url }}" alt="{{ detail.event.name }}" style="max-width: 100%; height: auto;">
-            <h3>Tickets:</h3>
-            {% for ticket in detail.tickets %}
-                <div class="ticket">
-                    <p><strong>Type:</strong> {{ ticket.event_type }}</p>
-                    <p><strong>Price:</strong> ${{ ticket.price }}</p>
-                    <p><strong>Quantity:</strong> {{ ticket.quantity }}</p>
-                </div>
-            {% endfor %}
+        
+    
+  </head>
+  
+  <body class="vertical light">
+    <div class="wrapper">
+      <!-- Top Navigation -->
+      <nav class="topnav navbar navbar-light">
+        <div class="navbar-brand">
+          <img src="{% static 'assets/images/logo.svg' %}" alt="Evento Logo" class="logo">
+          <span class="website-name">EventVista</span>
         </div>
-    {% endfor %}
-</body>
+      
+        <ul class="nav">
+          <li class="active" class="nav-item">
+            <a   class="nav-link text-muted my-2" href="/">Home</a>
+          </li>
+          <li class="" class="nav-item">
+            <a   class="nav-link text-muted my-2" href="/accounts/login/">Login</a>
+          </li>
+          <li class="" class="nav-item">
+            <a   class="nav-link text-muted my-2" href="/accounts/register/">Signup</a>
+          </li>
+        
+        </ul>
+      </nav>
+    
+
+
+      <main>   
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <div class="quote">
+                        <div class="quote-text mask1">
+                            "Transform your event experience with Evento - where every event is a memorable experience!"
+                        </div>
+                    </div>
+                    <div class="content-section">
+                        <div class="row mb-5">
+                            <div class="col-md-6 order-md-2">
+                                <img src="https://www.zekagraphic.com/wp-content/uploads/2023/02/5-Tips-content-calendar-for-every-brand.jpg" alt="Event Management" class="img-fluid">
+                            </div>
+                            <div class="col-md-6 order-md-1 d-flex flex-column justify-content-center">
+                                <h2 class="content-title">Organize with Ease</h2>
+                                <p class="content-text">
+                                    At Evento, we make event management effortless and enjoyable. Our platform offers intuitive tools to help you plan, organize, and manage events seamlessly. Whether you're an organizer or an attendee, we provide everything you need for a successful event.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row mb-5">
+                            <div class="col-md-6">
+                                <img src="https://marketplace.canva.com/EAEnW1vfoP4/1/0/1131w/canva-orange-green-upcoming-events-flyer-MlAwGxn0ukM.jpg" alt="Event Planning" class="img-fluid">
+                            </div>
+                            <div class="col-md-6 d-flex flex-column justify-content-center">
+                                <h2 class="content-title">Discover and Participate</h2>
+                                <p class="content-text">
+                                    Explore a wide range of events, from conferences and workshops to concerts and private parties. Find events that match your interests and participate in memorable experiences. With Evento, every event is just a click away.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 order-md-2">
+                                <img src="https://www.tryfrontrunner.com/wp-content/uploads/2019/03/Easy-Registration.png" alt="Event Participation" class="img-fluid">
+                            </div>
+                            <div class="col-md-6 order-md-1 d-flex flex-column justify-content-center">
+                                <h2 class="content-title">Effortless Registration</h2>
+                                <p class="content-text">
+                                    Register for events quickly and easily with our streamlined registration process. Receive updates, manage your bookings, and connect with organizers—all from a single platform. Evento makes it simple to stay on top of your event schedule.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    
+      
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <h5 class="footer-title">About Evento</h5>
+            <p class="footer-text">
+              Evento is your go-to platform for organizing and discovering events. We provide seamless tools and resources to help you make the most of every event experience.
+            </p>
+          </div>
+          <div class="col-md-4">
+            <h5 class="footer-title">Navigation</h5>
+            <ul class="footer-nav">
+              <li><a href="/">Home</a></li>
+              <li><a href="/accounts/register/">Sign Up</a></li>
+              <li><a href="/accounts/login/">Login</a></li>
+              <!-- <li><a href="about.html">About Us</a></li> -->
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <h5 class="footer-title">Contact Us</h5>
+            <p class="footer-text">Email: support@eventvista.com</p>
+            <p class="footer-text">Phone: +1 234 567 890</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 text-center">
+            <p class="footer-copyright">&copy; 2024 EventVista. All rights reserved.</p>
+          </div>
+        </div>
+      </div>
+    </footer>  
+    </div>
+
+    <!-- JavaScript -->
+    <script src="{% static 'js/dropzone.min.js' %}"></script>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/moment.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/simplebar.min.js' %}"></script>
+    <script src="{% static 'js/daterangepicker.js' %}"></script>
+    <script src="{% static 'js/jquery.stickOnScroll.js' %}"></script>
+    <script src="{% static 'js/tinycolor-min.js' %}"></script>
+    <script src="{% static 'js/config.js' %}"></script>
+    <script src="{% static 'js/apps.js' %}"></script>
+    <script src="{% static 'js/d3.min.js' %}"></script>
+    <script src="{% static 'js/topojson.min.js' %}"></script>
+    <script src="{% static 'js/datamaps.all.min.js' %}"></script>
+    <script src="{% static 'js/datamaps-zoomto.js' %}"></script>
+    <script src="{% static 'js/datamaps.custom.js' %}"></script>
+    <script src="{% static 'js/Chart.min.js' %}"></script>
+    <script>
+      /* Define global options */
+      Chart.defaults.global.defaultFontFamily = 'Overpass';
+      Chart.defaults.global.defaultFontColor = '#333';
+    </script>
+  <script src="{% static 'js/gauge.min.js' %}"></script>
+  <script src="{% static 'js/jquery.sparkline.min.js' %}"></script>
+  <script src="{% static 'js/apexcharts.min.js' %}"></script>
+  <script src="{% static 'js/apexcharts.custom.js' %}"></script>
+  <script src="{% static 'js/jquery.mask.min.js' %}"></script>
+  <script src="{% static 'js/select2.min.js' %}"></script>
+  <script src="{% static 'js/jquery.steps.min.js' %}"></script>
+  <script src="{% static 'js/jquery.validate.min.js' %}"></script>
+  <script src="{% static 'js/jquery.timepicker.js' %}"></script>
+  <script src="{% static 'js/uppy.min.js' %}"></script>
+  <script src="{% static 'js/quill.min.js' %}"></script>
+    <script>
+      // Select2 initialization
+      $('.select2').select2({ theme: 'bootstrap4' });
+      $('.select2-multi').select2({ multiple: true, theme: 'bootstrap4' });
+      // Datepicker
+      $('.drgpicker').daterangepicker({ singleDatePicker: true, timePicker: false, showDropdowns: true, locale: { format: 'MM/DD/YYYY' } });
+      // Timepicker
+      $('.time-input').timepicker({ 'scrollDefault': 'now', 'zindex': '9999' });
+      // Date range picker
+      if ($('.datetimes').length) {
+        $('.datetimes').daterangepicker({ timePicker: true, startDate: moment().startOf('hour'), endDate: moment().startOf('hour').add(32, 'hour'), locale: { format: 'M/DD hh:mm A' } });
+      }
+      var start = moment().subtract(29, 'days');
+      var end = moment();
+      function cb(start, end) {
+        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+      }
+      $('#reportrange').daterangepicker({ startDate: start, endDate: end, ranges: { 'Today': [moment(), moment()], 'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')], 'Last 7 Days': [moment().subtract(6, 'days'), moment()], 'Last 30 Days': [moment().subtract(29, 'days'), moment()], 'This Month': [moment().startOf('month'), moment().endOf('month')], 'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')] } }, cb);
+      cb(start, end);
+    </script>
+    <script>
+      /* Global Options */
+      Chart.defaults.global.defaultFontFamily = 'Overpass';
+      Chart.defaults.global.defaultFontColor = '#333';
+    </script>
+    <script>
+      function toggleSidebar() {
+          var sidebar = document.getElementById("sidebar");
+          var main = document.getElementById("main");
+      
+          if (sidebar.style.width === "250px") {
+              sidebar.style.width = "0";
+              main.style.marginLeft = "0";
+          } else {
+              sidebar.style.width = "250px";
+              main.style.marginLeft = "250px";
+          }
+      }
+  </script>
+  </body>
 </html>

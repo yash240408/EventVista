@@ -8,4 +8,7 @@ urlpatterns = [
     path('payment-success/', views.payment_success, name='payment_success'),
     path('payment-error/', views.payment_cancel, name='payment_error'),
     path('payment-cancel/', views.payment_cancel, name='payment_cancel'),
+    path('event_history/', views.event_history, name='event_history'),
+    path('profile/', views.profile, name='profile'),
+    path('event/', views.event, name='event'),
 ]

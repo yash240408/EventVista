@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+  {% load static %}
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{% static 'assets/images/logo.svg' %}">
+    <title>EventVista | Attendee | Home</title>
+
+    <link rel="stylesheet" href="{% static 'css/simplebar.css' %}">
+    <!-- Fonts CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+    <!-- Icons CSS -->
+    <link rel="stylesheet" href="{% static 'css/feather.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dataTables.bootstrap4.css' %}">
+    <!-- Date Range Picker CSS -->
+    <link rel="stylesheet" href="{% static 'css/daterangepicker.css' %}">
+    <!-- App CSS -->
+    <link rel="stylesheet" href="{% static 'css/app-light.css' %}" id="lightTheme">
+    <link rel="stylesheet" href="{% static 'css/newcss.css' %}">
+  </head>
+
+  <body class="vertical light">
+    <div class="wrapper">
+      <nav class="topnav navbar navbar-light">
+        <button type="button" class="navbar-toggler text-muted mt-2 p-0 mr-3 collapseSidebar">
+          <i class="fe fe-menu navbar-toggler-icon"></i>
+        </button>
+
+        <ul class="nav">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-muted pr-0" href="#" id="navbarDropdownMenuLink" role="button"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="avatar avatar-sm mt-2">
+                <img src="{% static 'assets/avatars/face-1.jpg' %}" alt="..." class="avatar-img rounded-circle">
+              </span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="/attendee/profile/">Profile</a>
+              <a class="dropdown-item" href="/accounts/logout/">Log Out</a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+      <aside class="sidebar-left border-right bg-white shadow" id="leftSidebar" data-simplebar>
+        <a href="#" class="btn collapseSidebar toggle-btn d-lg-none text-muted ml-2 mt-3" data-toggle="toggle">
+          <i class="fe fe-x"><span class="sr-only"></span></i>
+        </a>
+        <nav class="vertnav navbar navbar-light">
+          <!-- Branding -->
+          <div class="w-100 mb-4 d-flex">
+            <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="">
+              <svg version="1.1" id="logo" class="navbar-brand-img brand-sm" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 120 120" xml:space="preserve">
+                <g>
+                  <polygon class="st0" points="78,105 15,105 24,87 87,87" />
+                  <polygon class="st0" points="96,69 33,69 42,51 105,51" />
+                  <polygon class="st0" points="78,33 15,33 24,15 87,15" />
+                </g>
+              </svg>
+            </a>
+          </div>
+
+          <!-- New Pages Section -->
+          <ul class="navbar-nav flex-fill w-100 mb-2">
+            <li class="nav-item {% if request.path == '/attendee/home/' %}active{% endif %}">
+              <a class="nav-link" href="/attendee/home/">
+                <i class="fe fe-home fe-16"></i>
+                <span class="ml-3 item-text">Home Page</span>
+              </a>
+            </li>
+            <li class="nav-item {% if request.path == '/attendee/event_history/' %}active{% endif %}">
+              <a class="nav-link" href="/attendee/event_history/">
+                <i class="fe fe-clock fe-16"></i>
+                <span class="ml-3 item-text">Order History</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
+      <main role="main" class="main-content">
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col-12">
+              <section class="event_section">
+                <div class="container">
+                  <!-- Outdoors Category -->
+                  <div class="category_section">
+                    <h3 style="margin: 18px 0 18px 0;">Outdoors</h3>
+                    <hr>
+
+                    <div class="slider-container">
+                      <button style="z-index: 1;" class="slider-nav slider-nav-left" onclick="prevSlide('outdoors')">
+                        <i style="font-size: 21px;" class="fe fe-chevron-left "></i>
+                      </button>
+
+                      <div class="slider" id="outdoors-slider">
+                        <div class="slider-wrapper">
+                          <!-- Event Card 1 -->
+                          <div class="event_card">
+                            <div class="event_thumb">
+                              <img src="https://th.bing.com/th/id/OIP.v5nkXHeFHbFR8aGGthXbcwHaE8?rs=1&pid=ImgDetMain" alt="Event 1">
+                            </div>
+                            <div class="event_details">
+                              <h4>Event Name 1</h4>
+                              <p>Organizer: Name</p>
+                              <p>Destination: Place</p>
+                              <p>Time: Time</p>
+                              <p>Price: $Price</p>
+                              <button type="button" class="btn btn-primary"><a style="text-decoration:none; color: white;" href="">Check Out</a></button>
+                            </div>
+                          </div>
+
+                          <div class="event_card">
+                            <div class="event_thumb">
+                              <img src="https://th.bing.com/th/id/OIP.v5nkXHeFHbFR8aGGthXbcwHaE8?rs=1&pid=ImgDetMain" alt="Event 1">
+                            </div>
+                            <div class="event_details">
+                              <h4>Event Name 1</h4>
+                              <p>Organizer: Name</p>
+                              <p>Destination: Place</p>
+                              <p>Time: Time</p>
+                              <p>Price: $Price</p>
+                              <button type="button" class="btn btn-primary"><a style="text-decoration:none; color: white;" href="">Check Out</a></button>
+                            </div>
+                          </div>
+
+                          <div class="event_card">
+                            <div class="event_thumb">
+                              <img src="https://th.bing.com/th/id/OIP.v5nkXHeFHbFR8aGGthXbcwHaE8?rs=1&pid=ImgDetMain" alt="Event 1">
+                            </div>
+                            <div class="event_details">
+                              <h4>Event Name 1</h4>
+                              <p>Organizer: Name</p>
+                              <p>Destination: Place</p>
+                              <p>Time: Time</p>
+                              <p>Price: $Price</p>
+                              <button type="button" class="btn btn-primary"><a style="text-decoration:none; color: white;" href="">Check Out</a></button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <button class="slider-nav slider-nav-right" onclick="nextSlide('outdoors')">
+                        <i style="font-size: 21px;" class="fe fe-chevron-right "></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="category_section">
+                    <h3 style="margin: 18px 0 18px 0;">Stand up</h3>
+                    <hr>
+                    <div class="slider-container">
+                      <button style="z-index: 1;" class="slider-nav slider-nav-left" onclick="prevSlide('standup')">
+                        <i style="font-size: 21px;" class="fe fe-chevron-left "></i>
+                      </button>
+
+                      <div class="slider" id="standup-slider">
+                        <div class="slider-wrapper">
+                          <!-- Event Card 1 -->
+                          <div class="event_card">
+                            <div class="event_thumb">
+                              <img src="https://th.bing.com/th/id/OIP.v5nkXHeFHbFR8aGGthXbcwHaE8?rs=1&pid=ImgDetMain" alt="Event 1">
+                            </div>
+                            <div class="event_details">
+                              <h4>Event Name 1</h4>
+                              <p>Organizer: Name</p>
+                              <p>Destination: Place</p>
+                              <p>Time: Time</p>
+                              <p>Price: $Price</p>
+                              <button type="button" class="btn btn-primary"><a style="text-decoration:none; color: white;" href="">Check Out</a></button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <button class="slider-nav slider-nav-right" onclick="nextSlide('standup')">
+                        <i style="font-size: 21px;" class="fe fe-chevron-right "></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="category_section">
+                    <h3 style="margin: 18px 0 18px 0;">Concerts</h3>
+                    <hr>
+                    <div class="slider-container">
+                      <button style="z-index: 1;" class="slider-nav slider-nav-left" onclick="prevSlide('concerts')">
+                        <i style="font-size: 21px;" class="fe fe-chevron-left "></i>
+                      </button>
+
+                      <div class="slider" id="concerts-slider">
+                        <div class="slider-wrapper">
+                          <!-- Event Card 1 -->
+                          <div class="event_card">
+                            <div class="event_thumb">
+                              <img src="https://th.bing.com/th/id/OIP.v5nkXHeFHbFR8aGGthXbcwHaE8?rs=1&pid=ImgDetMain" alt="Event 1">
+                            </div>
+                            <div class="event_details">
+                              <h4>Event Name 1</h4>
+                              <p>Organizer: Name</p>
+                              <p>Destination: Place</p>
+                              <p>Time: Time</p>
+                              <p>Price: $Price</p>
+                              <button type="button" class="btn btn-primary"><a style="text-decoration:none; color: white;" href="">Check Out</a></button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <button class="slider-nav slider-nav-right" onclick="nextSlide('concerts')">
+                        <i style="font-size: 21px;" class="fe fe-chevron-right "></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+
+        <script src="{% static 'js/jquery.min.js' %}"></script>
+        <script src="{% static 'js/popper.min.js' %}"></script>
+        <script src="{% static 'js/moment.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/simplebar.min.js' %}"></script>
+        <script src="{% static 'js/daterangepicker.js' %}"></script>
+        <script src="{% static 'js/jquery.stickOnScroll.js' %}"></script>
+        <script src="{% static 'js/tinycolor-min.js' %}"></script>
+        <script src="{% static 'js/config.js' %}"></script>
+        <script src="{% static 'js/d3.min.js' %}"></script>
+        <script src="{% static 'js/topojson.min.js' %}"></script>
+        <script src="{% static 'js/datamaps.all.min.js' %}"></script>
+        <script src="{% static 'js/datamaps-zoomto.js' %}"></script>
+        <script src="{% static 'js/datamaps.custom.js' %}"></script>
+        <script src="{% static 'js/Chart.min.js' %}"></script>
+        <script src="{% static 'js/gauge.min.js' %}"></script>
+        <script src="{% static 'js/jquery.sparkline.min.js' %}"></script>
+        <script src="{% static 'js/apexcharts.min.js' %}"></script>
+        <script src="{% static 'js/apexcharts.custom.js' %}"></script>
+        <script src="{% static 'js/apps.js' %}"></script>
+
+        <script>
+          var currentSlide = {
+            'outdoors': 0,
+            'standup': 0,
+            'concerts': 0
+          };
+
+          function nextSlide(category) {
+            currentSlide[category]++;
+            showSlide(category, currentSlide[category]);
+          }
+
+          function prevSlide(category) {
+            currentSlide[category]--;
+            showSlide(category, currentSlide[category]);
+          }
+
+          function showSlide(category, index) {
+            var slider = document.getElementById(category + '-slider');
+            var slides = slider.querySelectorAll('.event_card');
+            if (index >= slides.length) {
+              currentSlide[category] = 0;
+            }
+            if (index < 0) {
+              currentSlide[category] = slides.length - 1;
+            }
+            for (var i = 0; i < slides.length; i++) {
+              slides[i].style.display = 'none';
+            }
+            slides[currentSlide[category]].style.display = 'block';
+          }
+
+          document.addEventListener('DOMContentLoaded', function () {
+            var categories = ['outdoors', 'standup', 'concerts'];
+            categories.forEach(function (category) {
+              showSlide(category, 0);
+            });
+          });
+        </script>
+      </main>
+    </div>
+  </body>
+</html>
