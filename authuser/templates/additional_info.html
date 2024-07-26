@@ -26,6 +26,19 @@
 
     <div class="wrapper vh-100">
         <div class="row align-items-center h-100">
+          <div class="container mt-4">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+              {{ message }}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            {% endfor %}
+            {% endif %}
+
+          </div>
           <form class="col-lg-6 col-md-8 col-10 mx-auto" action="/accounts/additional_info/" method="post" enctype="multipart/form-data">
             <div class="mx-auto text-center my-4">
               <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="/">

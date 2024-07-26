@@ -10,5 +10,5 @@ urlpatterns = [
     path('payment-cancel/', views.payment_cancel, name='payment_cancel'),
     path('event_history/', views.event_history, name='event_history'),
     path('profile/', views.profile, name='profile'),
-    path('event/', views.event, name='event'),
+    path('event/<int:event_id>/', views.event, name='event'),
 ]

@@ -105,66 +105,24 @@
       <div class="container-fluid">
         <div class="row justify-content-center">
           <div class="col-12">
+            <div class="container mt-4">
+              {% if messages %}
+              {% for message in messages %}
+              <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              {% endfor %}
+              {% endif %}
+
+            </div>
             <div class="row align-items-center mb-2">
-              <!-- Event Form Start -->
               <div class="col-12">
                 <h2 class="text-center mb-4">Add Event</h2>
-                <!-- <form action="/organizer/add_event/" method="post" enctype="multipart/form-data">
-                    <div class="form-group">
-                      <label for="eventName">Event Name</label>
-                      <input type="text" class="form-control" id="eventName" name="name" required>
-                    </div>
-                    <div class="form-group">
-                      <label for="eventDescription">Description</label>
-                      <textarea class="form-control" id="eventDescription" name="description" rows="4" required></textarea>
-                    </div>
-                    <div class="form-group">
-                      <label for="eventDate">Date</label>
-                      <input type="date" class="form-control" id="eventDate" name="date" required>
-                    </div>
-                    <div class="form-group">
-                      <label for="eventTime">Time</label>
-                      <input type="time" class="form-control" id="eventTime" name="time" required>
-                    </div>
-                    <div class="form-group">
-                      <label for="eventLocation">Location</label>
-                      <textarea class="form-control" id="eventLocation" name="location" required></textarea>
-                    </div>
-                    <div class="form-group">
-                      <label for="eventCategories">Categories</label>
-                      <select class="form-control" id="eventCategories" name="categories" required>
-                        <option value="" disabled selected>Select category</option>
-                        <option value="conference">Conference</option>
-                        <option value="workshop">Workshop</option>
-                        <option value="seminar">Seminar</option>
-                        <option value="webinar">Webinar</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label for="eventPicture">Event Picture</label>
-                      <input type="file" class="form-control-file" id="eventPicture" name="event_picture" accept="image/*" required>
-                    </div>
-                    <div class="form-group">
-                      <label for="eventType">Event Type</label>
-                      <select class="form-control" id="eventType" name="ticket_type" required>
-                        <option value="" disabled selected>Select Ticket type</option>
-                        <option value="general">General Admission</option>
-                        <option value="vip">VIP</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label for="eventPrice">Price</label>
-                      <input type="number" class="form-control" id="eventPrice" name="ticket_price" min="1" required>
-                    </div>
-                    <div class="form-group">
-                      <label for="eventQuantity">Quantity</label>
-                      <input type="number" class="form-control" id="eventQuantity" name="ticket_quantity" min="1" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Add Event</button>
-                  </form> -->
                 <form action="/organizer/add_event/" method="post" enctype="multipart/form-data" id="eventForm">
                   {% csrf_token %}
-
                   <div class="form-group">
                     <label for="eventName">Event Name</label>
                     <input type="text" class="form-control" id="eventName" name="name" required>

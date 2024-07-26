@@ -19,11 +19,12 @@
   <!-- Icons CSS -->
   <link rel="stylesheet" href="{% static 'css/feather.css' %}">
   <link rel="stylesheet" href="{% static 'css/dataTables.bootstrap4.css' %}">
-  <!-- Date Range Picker CSS -->
   <link rel="stylesheet" href="{% static 'css/daterangepicker.css' %}">
-  <!-- App CSS -->
   <link rel="stylesheet" href="{% static 'css/app-light.css' %}" id="lightTheme">
-  <link rel="stylesheet" href="{% static 'css/newcss.css' %}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+
+
 </head>
 
 <body class="vertical light">
@@ -38,7 +39,7 @@
           <a class="nav-link dropdown-toggle text-muted pr-0" href="#" id="navbarDropdownMenuLink" role="button"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="avatar avatar-sm mt-2">
-              <img src="{% static './assets/avatars/face-1.jpg' %}" alt="..." class="avatar-img rounded-circle">
+              <img src="{% static 'assets/avatars/face-1.jpg' %}" alt="..." class="avatar-img rounded-circle">
             </span>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
@@ -55,15 +56,8 @@
       <nav class="vertnav navbar navbar-light">
         <!-- Branding -->
         <div class="w-100 mb-4 d-flex">
-          <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="./index.html">
-            <svg version="1.1" id="logo" class="navbar-brand-img brand-sm" xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 120 120" xml:space="preserve">
-              <g>
-                <polygon class="st0" points="78,105 15,105 24,87 87,87" />
-                <polygon class="st0" points="96,69 33,69 42,51 105,51" />
-                <polygon class="st0" points="78,33 15,33 24,15 87,15" />
-              </g>
-            </svg>
+          <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="/organizer/home/">
+            <img src="{% static 'assets/images/logo.svg' %}" height="80px" width="80px" alt="Logo">
           </a>
         </div>
 
@@ -72,7 +66,7 @@
           <li class="nav-item {% if request.path == '/attendee/home/' %}active{% endif %}">
             <a class="nav-link" href="/attendee/home/">
               <i class="fe fe-home fe-16"></i>
-              <span class="ml-3 item-text">Home Pageo</span>
+              <span class="ml-3 item-text">Home Page</span>
             </a>
           </li>
           <li class="nav-item {% if request.path == '/attendee/event_history/' %}active{% endif %}">
@@ -81,8 +75,6 @@
               <span class="ml-3 item-text">Order History</span>
             </a>
           </li>
-          
-          
         </ul>
       </nav>
     </aside>
@@ -103,43 +95,31 @@
                       <thead>
                         <tr>
                           <th></th>
-                          <th>Sr.No.</th>
+                          <th>Transaction Id</th>
+                          <th>Date & Time</th>
                           <th>Event Name</th>
-                          <th>Description</th>
-                          <th>Date</th>
-                          <th>Time</th>
-                          <th>Location</th>
-                          <th>Categories</th>
-                          <th>Picture</th>
-                          <th>Event Type</th>
-                          <th>Price</th>
-                          <th>Quantity</th>
-                          <th>Payment Method</th>
+                          <th>Amount</th>
+                          <th>Status</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
+                        {% for payment in event_details %}
+                        <tr {% if payment.payment.status == "Completed" %}style="background-color: #d4edda;"{% elif payment.payment.status == "Failed" %}style="background-color: #f8d7da;"{% elif payment.payment.status == "Pending" %}style="background-color: #fff3cd;"{% endif %}>
                           <td>
                             <div class="custom-control custom-checkbox">
-                              <input type="checkbox" class="custom-control-input">
-                              <label class="custom-control-label"></label>
                             </div>
                           </td>
-                          <td>302</td>
-                          <td>Group Discussion</td>
-                          <td>Discussion about future tech trends</td>
-                          <td>Dec 4, 2019</td>
-                          <td>10:00 AM</td>
-                          <td>Ap #461-4415 Enim Rd.</td>
-                          <td>Workshop</td>
-                          <td>
-                            <img src="path/to/event-picture.jpg" alt="Event Picture" style="width: 50px; height: auto;">
-                          </td>
-                          <td>General Admission</td>
-                          <td>$30</td>
-                          <td>100</td>
-                          <td>Online</td>
+                          <td>{{ payment.payment.transaction_id }}</td>
+                          <td>{{ payment.payment.payment_date }}</td>
+                          <td>{{ payment.event.name }}</td>
+                          <td>${{ payment.payment.amount }}</td>
+                          <td>{{ payment.payment.status }}</td>
                         </tr>
+                        {% empty %}
+                        <tr>
+                          <td colspan="7">No payment records found.</td>
+                        </tr>
+                        {% endfor %}
                       </tbody>
                     </table>
 
@@ -193,187 +173,6 @@
   <script src="{% static 'js/apps.js' %}"></script>
 
 
-  <!-- <script>
-      $('.select2').select2(
-      {
-        theme: 'bootstrap4',
-      });
-      $('.select2-multi').select2(
-      {
-        multiple: true,
-        theme: 'bootstrap4',
-      });
-      $('.drgpicker').daterangepicker(
-      {
-        singleDatePicker: true,
-        timePicker: false,
-        showDropdowns: true,
-        locale:
-        {
-          format: 'MM/DD/YYYY'
-        }
-      });
-      $('.time-input').timepicker(
-      {
-        'scrollDefault': 'now',
-        'zindex': '9999' /* fix modal open */
-      });
-      /** date range picker */
-      if ($('.datetimes').length)
-      {
-        $('.datetimes').daterangepicker(
-        {
-          timePicker: true,
-          startDate: moment().startOf('hour'),
-          endDate: moment().startOf('hour').add(32, 'hour'),
-          locale:
-          {
-            format: 'M/DD hh:mm A'
-          }
-        });
-      }
-      var start = moment().subtract(29, 'days');
-      var end = moment();
-
-      function cb(start, end)
-      {
-        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-      }
-      $('#reportrange').daterangepicker(
-      {
-        startDate: start,
-        endDate: end,
-        ranges:
-        {
-          'Today': [moment(), moment()],
-          'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-          'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-          'This Month': [moment().startOf('month'), moment().endOf('month')],
-          'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        }
-      }, cb);
-      cb(start, end);
-      $('.input-placeholder').mask("00/00/0000",
-      {
-        placeholder: "__/__/____"
-      });
-      $('.input-zip').mask('00000-000',
-      {
-        placeholder: "____-___"
-      });
-      $('.input-money').mask("#.##0,00",
-      {
-        reverse: true
-      });
-      $('.input-phoneus').mask('(000) 000-0000');
-      $('.input-mixed').mask('AAA 000-S0S');
-      $('.input-ip').mask('0ZZ.0ZZ.0ZZ.0ZZ',
-      {
-        translation:
-        {
-          'Z':
-          {
-            pattern: /[0-9]/,
-            optional: true
-          }
-        },
-        placeholder: "___.___.___.___"
-      });
-      // editor
-      var editor = document.getElementById('editor');
-      if (editor)
-      {
-        var toolbarOptions = [
-          [
-          {
-            'font': []
-          }],
-          [
-          {
-            'header': [1, 2, 3, 4, 5, 6, false]
-          }],
-          ['bold', 'italic', 'underline', 'strike'],
-          ['blockquote', 'code-block'],
-          [
-          {
-            'header': 1
-          },
-          {
-            'header': 2
-          }],
-          [
-          {
-            'list': 'ordered'
-          },
-          {
-            'list': 'bullet'
-          }],
-          [
-          {
-            'script': 'sub'
-          },
-          {
-            'script': 'super'
-          }],
-          [
-          {
-            'indent': '-1'
-          },
-          {
-            'indent': '+1'
-          }], // outdent/indent
-          [
-          {
-            'direction': 'rtl'
-          }], // text direction
-          [
-          {
-            'color': []
-          },
-          {
-            'background': []
-          }], // dropdown with defaults from theme
-          [
-          {
-            'align': []
-          }],
-          ['clean'] // remove formatting button
-        ];
-        var quill = new Quill(editor,
-        {
-          modules:
-          {
-            toolbar: toolbarOptions
-          },
-          theme: 'snow'
-        });
-      }
-      // Example starter JavaScript for disabling form submissions if there are invalid fields
-      (function()
-      {
-        'use strict';
-        window.addEventListener('load', function()
-        {
-          // Fetch all the forms we want to apply custom Bootstrap validation styles to
-          var forms = document.getElementsByClassName('needs-validation');
-          // Loop over them and prevent submission
-          var validation = Array.prototype.filter.call(forms, function(form)
-          {
-            form.addEventListener('submit', function(event)
-            {
-              if (form.checkValidity() === false)
-              {
-                event.preventDefault();
-                event.stopPropagation();
-              }
-              form.classList.add('was-validated');
-            }, false);
-          });
-        }, false);
-      })();
-    </script> -->
-
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
   <script>
@@ -391,25 +190,7 @@
       "lengthMenu": [[16, 32, 64, -1], [16, 32, 64, "All"]]
     });
   </script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      // Get the current page URL
-      var currentPage = window.location.pathname.split('/').pop();
 
-      // Get all nav links
-      var navLinks = document.querySelectorAll('.navbar-nav .nav-link');
-
-      navLinks.forEach(function (link) {
-        // Get the href attribute of the link
-        var linkPath = new URL(link.href).pathname.split('/').pop();
-
-        // Check if the href matches the current page URL
-        if (linkPath === currentPage) {
-          link.classList.add('active');
-        }
-      });
-    });
-  </script>
   <script>
     function toggleSidebar() {
       var sidebar = document.getElementById("sidebar");
@@ -424,6 +205,17 @@
       }
     }
   </script>
+
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/moment.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/simplebar.min.js' %}"></script>
+<script src="{% static 'js/jquery.stickOnScroll.js' %}"></script>
+<script src="{% static 'js/config.js' %}"></script>
+<script src="{% static 'js/apps.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/simplebar.min.js' %}"></script>
 </body>
 
 </html>

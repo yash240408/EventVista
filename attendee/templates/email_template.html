@@ -1,26 +1,30 @@
 <!doctype html>
 <html lang="en">
-
+{% load static %}
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
-    <title>Your Tickets for [Event Name]</title>
+    <title>Your Tickets for {{ event_name }}</title>
     <style>
         body {
             margin: 0;
             padding: 0;
             font-family: 'Play', Helvetica, sans-serif;
-            background-color: #12262F;
+            background-color: #f4f4f4;
         }
 
         table {
             border-collapse: collapse;
             width: 100%;
             max-width: 600px;
-            margin: auto;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         img {
@@ -37,92 +41,84 @@
             padding: 20px;
         }
 
+        .header {
+            text-align: center;
+            padding: 20px;
+            background-color: #12262F;
+        }
+
         .header img {
-            width: 155px;
-            margin: 30px auto;
+            width: 150px;
+            margin: 0;
         }
 
         .ticket-info {
-            background-image: url('https://i.postimg.cc/bNZX40vV/black-bg.png');
-            border-radius: 2px;
-            border: 7px solid #EB860D;
-            margin: 20px auto;
-            text-align: center;
+            background-color: #000;
+            border: 2px solid #EB860D;
+            border-radius: 8px;
+            margin: 20px;
             padding: 20px;
+            color: #FFC400;
+            text-align: center;
         }
 
         .ticket-info p {
-            color: #FFC400;
             font-weight: bold;
             text-transform: uppercase;
-            font-size: 20px;
-            margin: 10px 0 15px;
+            font-size: 16px;
+            margin: 10px 0;
         }
 
-        .ticket-number,
-        .thank-you {
+        .ticket-details {
             background-color: #000;
             color: #fff;
-            font-weight: bold;
-            text-align: center;
-            margin: 20px auto;
-            padding: 15px;
-            font-size: 30px;
-        }
-
-        .thank-you {
-            font-size: 25px;
-            text-transform: uppercase;
-            padding: 8px 0;
-        }
-
-        .footer {
-            background-color: #000;
-            text-align: center;
-            padding: 10px;
-            color: #fff;
+            padding: 20px;
             font-size: 14px;
         }
 
-        .footer a {
-            margin: 0 12px;
+        .ticket-details div {
+            margin: 10px 0;
+        }
+
+        .footer {
+            background-color: #12262F;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
         }
 
         .footer p {
-            font-size: 11px;
-            margin: 5px 0;
+            margin: 10px 0;
         }
 
         .footer a {
             color: #F48B0E;
             text-decoration: none;
+            margin: 0 12px;
         }
 
         @media screen and (max-width: 600px) {
-            .container {
-                padding: 10px;
-            }
-
             .ticket-info,
-            .ticket-number,
-            .thank-you {
-                margin: 20px auto;
+            .ticket-details {
+                margin: 10px;
                 padding: 10px;
-                width: 100%;
             }
 
-            .ticket-number,
-            .thank-you {
-                font-size: 20px;
+            .ticket-info p {
+                font-size: 14px;
+            }
+
+            .ticket-details div {
+                font-size: 12px;
+            }
+
+            .footer p {
+                font-size: 12px;
             }
 
             .footer a {
                 margin: 0 5px;
-                width: 20px;
-            }
-
-            .footer p {
-                font-size: 10px;
             }
         }
     </style>
@@ -130,34 +126,26 @@
 
 <body>
     <table class="container">
-        <thead>
-            <tr>
-                <th colspan="2" class="header">
-                    <img src="https://i.postimg.cc/SsQ4tY0X/white-logo.png" alt="LimitLess VR Logo">
-                </th>
-            </tr>
-        </thead>
         <tbody>
             <tr>
                 <td class="ticket-info">
-                    <p>quick pass</p>
-                    <img src='https://i.postimg.cc/fWx5yJrW/qr-Code.png' alt='QR Code' />
+                    <p>Event Ticket Confirmation</p>
+                    <p style="font-size: small;">Boarding Pass is Attached</p>
                 </td>
             </tr>
             <tr>
-                <td class="ticket-number">67293</td>
+                <td class="ticket-details">
+                    <div>Event Name: <b>{{ event_name }}</b></div>
+                    <div>Date & Time: <b>{{ event_date }} - {{ event_time }}</b></div>
+                    <div>Location: <b>{{ event_location }}</b></div>
+                    <div>Quantity: <b>{{ quantity }}</b></div>
+                    <div>Price per Ticket: <b>${{ ticket_price }}</b></div>
+                    <div>Total Price: <b>${{ total_price }}</b></div>
+                </td>
             </tr>
             <tr>
-                <td class="thank-you">thank you!</td>
-            </tr>
-            <tr class="footer">
-                <td>
-                    <a href='https://www.facebook.com/WeAreLimitlessVR/'>
-                        <img src="https://i.postimg.cc/1zd4xZSc/facebook-logo.png" alt="Facebook Logo">
-                    </a>
-                    <a href='https://www.instagram.com/wearelimitlessvr/'>
-                        <img src="https://i.postimg.cc/RV0rtJKh/instagram-logo.png" alt="Instagram Logo">
-                    </a>
+                <td class="footer">
+                    <p>Thank you for your purchase!</p>
                 </td>
             </tr>
         </tbody>

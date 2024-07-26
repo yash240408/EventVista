@@ -1,261 +1,194 @@
 <!doctype html>
 <html lang="en">
-  {% load static %}
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="{% static 'assets/images/logo.svg' %}">
-    <title>EventVista | Attendee | Event</title>
-    <!-- Simple bar CSS -->
-  
-    <link rel="stylesheet" href="{% static 'css/simplebar.css' %}">
-    <!-- Fonts CSS -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
-      rel="stylesheet">
-    <!-- Icons CSS -->
-    <link rel="stylesheet" href="{% static 'css/feather.css' %}">
-    <link rel="stylesheet" href="{% static 'css/dataTables.bootstrap4.css' %}">
-    <!-- Date Range Picker CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+{% load static %}
 
-    <link rel="stylesheet" href="{% static 'css/daterangepicker.css' %}">
-    <!-- App CSS -->
-    <link rel="stylesheet" href="{% static 'css/app-light.css' %}" id="lightTheme">
-    <link rel="stylesheet" href="{% static 'css/newcss.css' %}">
-  </head>
-  
-  <body class="vertical light">
-    <div class="wrapper">
-      <nav class="topnav navbar navbar-light">
-        <button type="button" class="navbar-toggler text-muted mt-2 p-0 mr-3 collapseSidebar">
-          <i class="fe fe-menu navbar-toggler-icon"></i>
-        </button>
-        
-        <ul class="nav">
-        
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-muted pr-0" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span class="avatar avatar-sm mt-2">
-                <img src="{% static 'assets/avatars/face-1.jpg' %}" alt="..." class="avatar-img rounded-circle">
-              </span>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="{% static 'assets/images/logo.svg' %}">
+  <title>EventVista | Attendee | Event - {{ event.name }}</title>
+
+  <!-- CDN for Bootstrap -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/simplebar.css' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/feather.css' %}">
+  <link rel="stylesheet" href="{% static 'css/app-light.css' %}" id="lightTheme">
+
+  <style>
+    body {
+      font-family: 'Overpass', sans-serif;
+      background-color: #f8f9fa;
+    }
+
+    .event-image-container img {
+      width: 100%;
+      height: auto;
+      max-height: 400px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .event-detail-page {
+      padding: 20px;
+    }
+
+    .card {
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #dee2e6;
+    }
+
+    .card-body {
+      padding: 20px;
+    }
+
+    .form-container {
+      margin-top: 20px;
+    }
+
+    .form-label {
+      font-weight: bold;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+      border-color: #004085;
+    }
+
+    .event-description {
+      margin-top: 20px;
+    }
+
+    .event-description p {
+      line-height: 1.6;
+    }
+
+    .center-button {
+      display: flex;
+      justify-content: center;
+    }
+
+    .btn-container {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .card-title{
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body class="vertical light">
+  <div class="wrapper">
+    <nav class="topnav navbar navbar-light">
+      <button type="button" class="navbar-toggler text-muted mt-2 p-0 mr-3 collapseSidebar">
+        <i class="fe fe-menu navbar-toggler-icon"></i>
+      </button>
+      <ul class="nav">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-muted pr-0" href="#" id="navbarDropdownMenuLink" role="button"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="avatar avatar-sm mt-2">
+              <img src="{% static 'assets/avatars/face-1.jpg' %}" alt="..." class="avatar-img rounded-circle">
+            </span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="/attendee/profile/">Profile</a>
+            <a class="dropdown-item" href="/accounts/logout">Log Out</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+    <aside class="sidebar-left border-right bg-white shadow" id="leftSidebar" data-simplebar>
+      <a href="#" class="btn collapseSidebar toggle-btn d-lg-none text-muted ml-2 mt-3" data-toggle="toggle">
+        <i class="fe fe-x"><span class="sr-only"></span></i>
+      </a>
+      <nav class="vertnav navbar navbar-light">
+        <div class="w-100 mb-4 d-flex">
+          <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="/attendee/home/">
+            <img src="{% static 'assets/images/logo.svg' %}" height="80px" width="80px" alt="Logo">
+          </a>
+        </div>
+
+        <ul class="navbar-nav flex-fill w-100 mb-2">
+          <li class="nav-item {% if request.path == '/attendee/home/' %}active{% endif %}">
+            <a class="nav-link" href="/attendee/home/">
+              <i class="fe fe-home fe-16"></i>
+              <span class="ml-3 item-text">Home Page</span>
             </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="/accounts/profile/">Profile</a>
-              <a class="dropdown-item" href="/accounts/logout/">Log Out</a>
-            </div>
+          </li>
+          <li class="nav-item {% if request.path == '/attendee/event_history/' %}active{% endif %}">
+            <a class="nav-link" href="/attendee/event_history/">
+              <i class="fe fe-clock fe-16"></i>
+              <span class="ml-3 item-text">Order History</span>
+            </a>
           </li>
         </ul>
       </nav>
-      <aside class="sidebar-left border-right bg-white shadow" id="leftSidebar" data-simplebar>
-        <a href="#" class="btn collapseSidebar toggle-btn d-lg-none text-muted ml-2 mt-3" data-toggle="toggle">
-          <i class="fe fe-x"><span class="sr-only"></span></i>
-        </a>
-        <nav class="vertnav navbar navbar-light">
-          <!-- Branding -->
-          <div class="w-100 mb-4 d-flex">
-            <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="./index.html">
-              <svg version="1.1" id="logo" class="navbar-brand-img brand-sm" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 120 120" xml:space="preserve">
-                <g>
-                  <polygon class="st0" points="78,105 15,105 24,87 87,87" />
-                  <polygon class="st0" points="96,69 33,69 42,51 105,51" />
-                  <polygon class="st0" points="78,33 15,33 24,15 87,15" />
-                </g>
-              </svg>
-            </a>
-          </div>
-      
-          <ul class="navbar-nav flex-fill w-100 mb-2">
-            <li class="nav-item {% if request.path == '/attendee/home/' %}active{% endif %}">
-              <a class="nav-link" href="/attendee/home/">
-                <i class="fe fe-home fe-16"></i>
-                <span class="ml-3 item-text">Home Pageo</span>
-              </a>
-            </li>
-            <li class="nav-item {% if request.path == '/attendee/event_history/' %}active{% endif %}">
-              <a class="nav-link" href="/attendee/event_history/">
-                <i class="fe fe-clock fe-16"></i>
-                <span class="ml-3 item-text">Order History</span>
-              </a>
-            </li>
-            
-            
-          </ul>
-        </nav>
-      </aside>
-      
-      <main role="main" class="main-content">
-        <div class="container-fluid">
-          <div class="row justify-content-center">
-            <div class="col-12">
-                <div class="event-detail-page">
-                    <!-- Full Event Card -->
-                    <div class="full-event-card">
-                      <div class="event-image-container">
-                        <img src="https://th.bing.com/th/id/OIP.v5nkXHeFHbFR8aGGthXbcwHaE8?rs=1&pid=ImgDetMain" alt="Event Image">
-                      </div>
-                      <div class="event-info-container">
-                        <div class="share">
-                            <button class="btn btn-sm  more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fe fe-share-2 fe-16"></i></button>
-                              <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="https://api.whatsapp.com/send?phone=+1234567890&text=Hello,%20this%20is%20a%20predefined%20message!" target="_blank">
-                                  <i class="fab fa-whatsapp"></i> Share on WhatsApp
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                  <i class="fab fa-facebook-f"></i> Share on Facebook
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                  <i class="fab fa-twitter"></i> Share on Twitter
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                  <i class="fab fa-linkedin-in"></i> Share on LinkedIn
-                                </a>
-                              </div>
-                        </div>
-                        <h1 class="event-title">Event Name 1</h1>
-                        <p><strong>Time:</strong> Time</p>
-                        <p><strong>Venue:</strong> Place</p>
-                        <p><strong>Remaining Seats:</strong> X</p>
-                        <button type="button" class="btn btn-primary"><a style="text-decoration:none; color: white;" href="">Book Now</a></button>
-                      </div>
+    </aside>
+
+    <main role="main" class="main-content">
+      <div class="container-fluid">
+        <div class="row justify-content-center">
+          <div class="col-md-8">
+            <div class="event-detail-page">
+              <div class="card mb-4">
+                <div class="event-image-container">
+                  <img src="{{ event.event_picture.url }}" alt="Event Image">
+                </div>
+                <div class="card-body">
+                  <h1 class="card-title">{{ event.name }}</h1>
+                  <p class="mt-2"><strong>Date & Time:</strong> {{ event.date }} - {{ event.time }}</p>
+                  <p><strong>Venue:</strong> {{ event.location }}</p>
+                  <p class="event-description"><strong>Description:</strong> {{ event.description }}</p>
+                  <p><strong>Ticket Price:</strong> <u><b> {{ ticket.price }}</b></u></p>
+                  <p><strong>Remaining Seats:</strong> <u><b> {{ ticket.remaining_quantity }}</b></u></p>
+                </div>
+              </div>
+
+              <div class="form-container">
+                <div class="btn-container">
+                  <form method="post" action="{% url 'create_checkout_session' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="event_id" value="{{ event.id }}">
+                    <input type="hidden" name="ticket_id" value="{{ ticket.id }}">
+                    <div class="mb-3">
+                      <label for="quantity" class="form-label">Quantity</label>
+                      <input type="number" id="quantity" class="form-control" name="quantity" min="1"
+                        max="{{ ticket.remaining_quantity }}" value="1" required>
                     </div>
-                    <br>
-                    <h2>Description</h2>
-                    <p class="event-description">
-                        Description: This is a detailed description of the event. It provides all necessary information about what to expect, the agenda, and any additional details.
-                      </p>
-                  </div>
+                    <button type="submit" class="btn btn-primary">Buy Now</button>
+                  </form>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        
-          
-        
-      </main> <!-- main -->
-      
-  </div> <!-- .wrapper -->
-    
+      </div>
+    </main>
 
-
-
-    <!-- jQuery -->
-     
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.bundle.min.js"></script>
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/popper.min.js' %}"></script>
     <script src="{% static 'js/moment.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/simplebar.min.js' %}"></script>
-    <script src="{% static 'js/daterangepicker.js' %}"></script>
     <script src="{% static 'js/jquery.stickOnScroll.js' %}"></script>
-    <script src="{% static 'js/tinycolor-min.js' %}"></script>
     <script src="{% static 'js/config.js' %}"></script>
-    <script src="{% static 'js/d3.min.js' %}"></script>
     <script src="{% static 'js/apps.js' %}"></script>
-    <script src="{% static 'js/topojson.min.js' %}"></script>
-    <script src="{% static 'js/datamaps.all.min.js' %}"></script>
-    <script src="{% static 'js/datamaps-zoomto.js' %}"></script>
-    <script src="{% static 'js/datamaps.custom.js' %}"></script>
-    <script src="{% static 'js/Chart.min.js' %}"></script>
-    <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
-    <script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/simplebar.min.js' %}"></script>
 
-
-    <script src="{% static 'js/gauge.min.js' %}"></script>
-    <script src="{% static 'js/jquery.sparkline.min.js' %}"></script>
-    <script src="{% static 'js/apexcharts.min.js' %}"></script>
-    <script src="{% static 'js/apexcharts.custom.js' %}"></script>
-    <script src="{% static 'js/jquery.mask.min.js' %}"></script>
-    <script src="{% static 'js/select2.min.js' %}"></script>
-    <script src="{% static 'js/jquery.steps.min.js' %}"></script>
-    <script src="{% static 'js/jquery.validate.min.js' %}"></script>
-    <script src="{% static 'js/jquery.timepicker.js' %}"></script>
-    <script src="{% static 'js/dropzone.min.js' %}"></script>
-    <script src="{% static 'js/uppy.min.js' %}"></script>
-    <script src="{% static 'js/quill.min.js' %}"></script>
-    <script src="{% static 'js/apps.js' %}"></script>
-  
-    <script>
-
-function prevSlide(category) {
-    var slider = document.getElementById(category + '-slider');
-    var sliderWrapper = slider.querySelector('.slider-wrapper');
-    var cardWidth = slider.querySelector('.event_card').offsetWidth + 15; // Including margin
-
-    var transformValue = getComputedStyle(sliderWrapper).transform;
-    var matrix = new DOMMatrix(transformValue);
-    var currentTranslateX = matrix.m41 || 0;
-
-    // Ensure we are not moving beyond the first card
-    if (currentTranslateX < 0) {
-        sliderWrapper.style.transform = `translateX(${Math.min(0, currentTranslateX + cardWidth)}px)`;
-    }
-}
-
-
-function nextSlide(category) {
-    var slider = document.getElementById(category + '-slider');
-    var sliderWrapper = slider.querySelector('.slider-wrapper');
-    var cardWidth = slider.querySelector('.event_card').offsetWidth + 15; // Including margin
-
-    var sliderWidth = slider.offsetWidth;
-    var sliderWrapperWidth = sliderWrapper.scrollWidth;
-    var transformValue = getComputedStyle(sliderWrapper).transform;
-    var matrix = new DOMMatrix(transformValue);
-    var currentTranslateX = matrix.m41 || 0;
-
-    if (Math.abs(currentTranslateX) < sliderWrapperWidth - sliderWidth) {
-        sliderWrapper.style.transform = `translateX(${Math.max(currentTranslateX - cardWidth, sliderWidth - sliderWrapperWidth)}px)`;
-    }
-  }
-
-    </script>  
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-
-      function gtag()
-      {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-      gtag('config', 'UA-56159088-1');
-    </script>
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // Get the current page URL
-        var currentPage = window.location.pathname.split('/').pop();
     
-        // Get all nav links
-        var navLinks = document.querySelectorAll('.navbar-nav .nav-link');
-    
-        navLinks.forEach(function(link) {
-          // Get the href attribute of the link
-          var linkPath = new URL(link.href).pathname.split('/').pop();
-    
-          // Check if the href matches the current page URL
-          if (linkPath === currentPage) {
-            link.classList.add('active');
-          }
-        });
-      });
-    </script>
-     <script>
-      function toggleSidebar() {
-          var sidebar = document.getElementById("sidebar");
-          var main = document.getElementById("main");
-      
-          if (sidebar.style.width === "250px") {
-              sidebar.style.width = "0";
-              main.style.marginLeft = "0";
-          } else {
-              sidebar.style.width = "250px";
-              main.style.marginLeft = "250px";
-          }
-      }
-  </script>
-  </body>
+</body>
+
 </html>

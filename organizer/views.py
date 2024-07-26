@@ -2,18 +2,16 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 import stripe, time as picture_time
 from organizer.models import Event, Ticket, Payment, User
 from django.contrib import messages
-from django.db.models import Sum, Count, F, Q, Max, Min, Avg
+from django.db.models import Sum, Count,  Max, Min, Avg
 from datetime import timedelta
 stripe.api_key = settings.STRIPE_SECRET_KEY
 from django.utils import timezone
 import matplotlib.pyplot as plt
-import io
-import urllib, base64
+import io, base64
 
 @login_required
 def home(request):
