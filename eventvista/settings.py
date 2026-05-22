@@ -150,15 +150,15 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 ACCOUNT_LOGOUT_ON_GET = True
 LOGIN_URL = '/accounts/login/'
 
-GOOGLE_CLIENT_ID = '8269531481-giedngbao8mbdqobarf8pvpmmgekrqtf.apps.googleusercontent.com'
-GOOGLE_CLIENT_SECRET = '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'
+GOOGLE_CLIENT_ID = ''
+GOOGLE_CLIENT_SECRET = ''
 
-GITHUB_CLIENT_ID = 'Ov23liX0E65WSAJnFICo'
-GITHUB_CLIENT_SECRET = 'fb32999c0525aa6999edf9230c64cf7ec3d748da'
+GITHUB_CLIENT_ID = ''
+GITHUB_CLIENT_SECRET = ''
 
 
-STRIPE_SECRET_KEY = 'sk_test_51PeyogRqGGwUhQZ4GdCMzb1fS7nwW7316ixjpNEMA2sRoxVMJxqKsfv0iSEetaQS9ADWWYcGkIj4XkELe9b7XQM800MlkAxjT7'
-STRIPE_PUBLIC_KEY = 'pk_test_51PeyogRqGGwUhQZ4kbHCnnviPGH6HPM6eS85vDssBoIubMrW6GvDD3PsXJqiDtn3XSgYYinAHD4gZW0EuljRtwDU006L2AwgYo'
+STRIPE_SECRET_KEY = ''
+STRIPE_PUBLIC_KEY = ''
 STRIPE_WEBHOOK_SECRET = 'your_webhook_secret'  # For handling webhooks
 
 
@@ -171,6 +171,6 @@ EMAIL_HOST = 'smtp.gmail.com'  # E.g., 'smtp.gmail.com' for Gmail
 EMAIL_PORT = 465  # Or 465 for SSL
 EMAIL_USE_TLS = False  # Set to False if using SSL
 EMAIL_USE_SSL = True  # Set to True if using SSL
-EMAIL_HOST_USER = 'nikosata798@gmail.com'
-EMAIL_HOST_PASSWORD = 'xnqmkitopbgtxois'
-DEFAULT_FROM_EMAIL = 'nikosata798@gmail.com'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+DEFAULT_FROM_EMAIL = ''
